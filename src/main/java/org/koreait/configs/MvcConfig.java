@@ -1,18 +1,23 @@
 package org.koreait.configs;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.interceptors.SiteInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+@RequiredArgsConstructor
 public class MvcConfig implements WebMvcConfigurer {
+
+    private final SiteInterceptor siteInterceptor;
 
     @Value("${file.upload.path}")
     private String fileUploadPath;
@@ -27,6 +32,13 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("uploads/**")
                 .addResourceLocations("file:///" + fileUploadPath);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(siteInterceptor)
+                .addPathPatterns("/**");
+
     }
 
     @Bean
