@@ -26,6 +26,7 @@ public class SiteConfigController implements CommonFunc {
         commonProcess(model);
         SiteConfigData data = infoService.get(configId, SiteConfigData.class);
         model.addAttribute("siteConfigData",data == null ? new SiteConfigData() : data);
+        model.addAttribute("addCss", new String("config"));
         return "admin/config";
     }
 
@@ -34,6 +35,7 @@ public class SiteConfigController implements CommonFunc {
         commonProcess(model);
         saveService.save(configId,siteConfigdata);
         model.addAttribute("message","설정이 저장되었습니다");
+        model.addAttribute("addCss", new String("config"));
         return "admin/config";
     }
 
