@@ -29,7 +29,7 @@ public class MemberEntity extends BaseEntity{
     private String email; // 이메일
 
     @Column(length=11)
-    private String mobile; // 모바일
+    private String mobile; // 연락처
 
     @Column(nullable = false)
     private boolean agree; // 회원 약관 동의

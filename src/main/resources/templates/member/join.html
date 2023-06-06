@@ -5,11 +5,51 @@
     <section layout:fragment="content">
         <form name="form_join" method="post" th:action="@{/member/join}" autocomplete="off">
             <dl>
-                <dt>하이염</dt>
+                <dt>아이디</dt>
                 <dd>
-
+                    <input type="text" name="memberId">
                 </dd>
             </dl>
+            <dl>
+                <dt>비밀번호</dt>
+                <dd>
+                    <input type="password" name="memberPw">
+                </dd>
+            </dl>
+            <dl>
+                <dt>비밀번호 확인</dt>
+                <dd>
+                    <input type="password" name="memberPwRe">
+                </dd>
+            </dl>
+            <dl>
+                <dt>회원명</dt>
+                <dd>
+                    <input type="text" name="memberNm">
+                </dd>
+            </dl>
+            <dl>
+                <dt>이메일</dt>
+                <dd>
+                    <input type="text">
+                </dd>
+            </dl>
+            <dl>
+                <dt>연락처</dt>
+                <dd>
+                    <input type="text">
+                </dd>
+            </dl>
+            <dl>
+                <dt>회원가입 약관 동의</dt>
+                <dt>
+                    <input type="checkbox" value="true" name="agree">
+                </dt>
+            </dl>
+            <div class="btns">
+                <button type="reset"> 다시작성</button>
+                <button type="submit" >회원가입</button>
+            </div>
         </form>
     </section>
 </html>
