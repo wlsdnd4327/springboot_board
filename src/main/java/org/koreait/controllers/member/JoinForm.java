@@ -26,10 +26,10 @@ public class JoinForm {
     @NotBlank
     private String memberNm; // 회원명
 
-    @Email
+    @NotBlank @Email
     private String email; // 이메일
     
     private String mobile; // 연락처
 
-    private boolean agree; // 회원 약관 동의
+    private boolean[] agrees; // 회원 약관 동의
 }

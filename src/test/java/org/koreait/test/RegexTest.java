@@ -28,7 +28,7 @@ public class RegexTest {
                 "^[A-Z]*$",
                 "^\\d$", //
                 "^\\D$", // 숫자 이외
-                "^01(?:0|1|[6-9])\\d{3,4}\\d{4}$", // 휴대전화 번호 양식
+                "^01(?:0|1|[6-8])\\d{3,4}\\d{4}$", // 휴대전화 번호 양식
                 "^[\\w]*$"
         };
     }
@@ -50,6 +50,22 @@ public class RegexTest {
         String str = "aaAAddDDff";
 
         Matcher matcher = pattern.matcher(str);
-        System.out.println(matcher.matches());
+        assertTrue(matcher.matches(),"형식 일치");
     }
+
+    @Test
+    @DisplayName("전화번호 형식 통과")
+    void exam03(){
+        Pattern pattern = Pattern.compile(strings[6]);
+        String str = "010-4766-1265";
+
+        str = str.replaceAll("\\D","");
+        System.out.println(str);
+        Matcher matcher = pattern.matcher(str);
+        assertTrue(matcher.matches(),"형식 일치");
+        
+    }
+
+
+
 }
