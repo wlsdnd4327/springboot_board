@@ -2,9 +2,8 @@ package org.koreait.controllers.member;
 
 
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.constants.Regex;
-import org.koreait.commons.validators.MobileFormCheck;
-import org.koreait.commons.validators.PasswordFormCheck;
+import org.koreait.commons.validators.MobileFormValidator;
+import org.koreait.commons.validators.PasswordFormValidator;
 import org.koreait.repositories.MemberRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -12,7 +11,7 @@ import org.springframework.validation.Validator;
 
 @Component
 @RequiredArgsConstructor
-public class JoinValidator implements Validator, MobileFormCheck, PasswordFormCheck {
+public class JoinValidator implements Validator, MobileFormValidator, PasswordFormValidator {
 
     private final MemberRepository repository;
 
@@ -50,7 +49,7 @@ public class JoinValidator implements Validator, MobileFormCheck, PasswordFormCh
         if(!memberPw.isBlank() && memberPw!=null){
 
             //2. 비밀번호 - 비밀번호 확인 동일 여부 체크
-            if(memberPw != memberPwRe && !memberPwRe.isBlank() && memberPwRe != null) {
+            if(!memberPwRe.isBlank() && memberPwRe != null && !memberPw.equals(memberPwRe)) {
                 errors.rejectValue("memberPwRe", "Validation.discord.password");
             }
 

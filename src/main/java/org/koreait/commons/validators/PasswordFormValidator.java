@@ -5,7 +5,7 @@ import org.koreait.commons.constants.Regex;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public interface PasswordFormCheck {
+public interface PasswordFormValidator {
     /**
      * 비밀번호 형식 특수성 체크
      * 1. 영대소문자 하나 이상 포함 - isCaseCheck(true : 대소문자 각각 1자이상 , false : 대소문자 구분 X)
@@ -21,9 +21,9 @@ public interface PasswordFormCheck {
 
         if(!isCaseCheck) {
             Matcher matcher = ig.matcher(memberPw);
-            result = matcher.matches();
+            result = matcher.find();
         }else {
-            result = lower.matcher(memberPw).matches() && upper.matcher(memberPw).matches();
+            result = lower.matcher(memberPw).find() && upper.matcher(memberPw).find();
         }
 
         return result;
@@ -32,13 +32,12 @@ public interface PasswordFormCheck {
     default boolean numberCheck(String memberPw){
         Pattern pattern = Pattern.compile(Regex.NUM.getValue());
         Matcher matcher = pattern.matcher(memberPw);
-        return matcher.matches();
+        return matcher.find();
     }
 
         default boolean specialCheck(String memberPw){
         Pattern pattern = Pattern.compile(Regex.SPECIAL.getValue());
         Matcher matcher = pattern.matcher(memberPw);
-        return matcher.matches();
+        return matcher.find();
     }
-
 }

@@ -3,7 +3,7 @@ package org.koreait.commons.validators;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public interface MobileFormCheck {
+public interface MobileFormValidator {
 
     default boolean checkForm(String mobile){
 

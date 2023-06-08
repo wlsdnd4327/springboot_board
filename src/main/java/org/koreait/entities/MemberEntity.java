@@ -2,6 +2,7 @@ package org.koreait.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.koreait.commons.constants.Role;
 
 @Entity @Data
 @Builder
@@ -32,5 +33,9 @@ public class MemberEntity extends BaseEntity{
     private String mobile; // 연락처
 
     @Lob
-    private boolean termsAgree; // 약관 동의 내역
+    private String termsAgree; // 약관 동의 내역
+
+    @Enumerated(EnumType.STRING)
+    @Column(length=15,nullable = false)
+    private Role role = Role.MEMBER;
 }

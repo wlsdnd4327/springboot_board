@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.koreait.commons.constants.Regex;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
@@ -18,7 +19,8 @@ import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 @Transactional
 public class RegexTest {
     private String[] strings;
-
+    private String memberPw = "aA!123456";
+    
     @BeforeEach
     public void testSet(){
         strings=new String[] {
@@ -66,6 +68,22 @@ public class RegexTest {
         
     }
 
+    @Test
+    @DisplayName("영문자 포함 테스트")
+    void exam04(){
+        boolean isCaseCheck = false;
 
+        Pattern lower = Pattern.compile(Regex.LOWER_CASE.getValue());
+        Pattern upper = Pattern.compile(Regex.UPPER_CASE.getValue());
+        Pattern ig = Pattern.compile(Regex.IGNORE_CASE.getValue());
+        boolean result = false;
 
+        if(!isCaseCheck) {
+            Matcher matcher = ig.matcher(memberPw);
+            result = matcher.find();
+        }else {
+            result = lower.matcher(memberPw).matches() && upper.matcher(memberPw).matches();
+        }
+        assertTrue(result,"불일치");
+    }
 }

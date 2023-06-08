@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://utraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main2}">
+    <section layout:fragment="content">
+        <h1 th:text="#{login}"></h1>
+        <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
+        <form method="post" th:action="@{/member/login}">
+            <div class="flex_form">
+                <table class="table-raw">
+                    <tr>
+                        <th>아이디</th>
+                        <td>
+                            <input type="text" name="memberId">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>비밀번호</th>
+                        <td>
+                            <input type="password" name="memberId">
+                        </td>
+                    </tr>
+                </table>
+                <div class="btns">
+                    <button type="submit" th:text="#{member.action.login}"></button>
+                </div>
+            </div>
+            <span>
+                <a th:href="@{/member/findId}">
+                    <i class="xi-user" th:text="#{member.findId}"></i>
+                </a>
+                <a th:href="@{/member/findPw}" >
+                    <i class="xi-key" th:text="#{member.findPw}"></i>
+                </a>
+                <a th:href="@{/member/join}">
+                    <i class="xi-users-plus" th:text="#{member.join}"></i>
+                </a>
+            </span>
+        </form>
+    </section>
+</html>
