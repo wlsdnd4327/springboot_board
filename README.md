@@ -29,5 +29,8 @@
   - 회원 정보 추가/ 수정
 - 로그인 기능
   - 회원 정보 조회(UserDetails & UserDetailsService 구현) - spring 시큐리티
+    - List<GrantedAuthority> authorities
+      - 시큐리티 인가 기능에서 사용하는 값.(회원의 권한 확인)
+      - .requestMatchers("/admin/**").hasAuthority("ADMIN") // 사용 예시
   - 로그인 성공 및 실패 시 세션처리 및 이동 페이지 Handling - spring 시큐리티
   - 아이디 저장 기능 추가 - 쿠키 애너테이션

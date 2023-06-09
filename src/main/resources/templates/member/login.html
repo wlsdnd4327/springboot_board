@@ -4,20 +4,24 @@
       layout:decorate="~{layouts/main2}">
     <section layout:fragment="content">
         <h1 th:text="#{login}"></h1>
-        <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
-        <form method="post" th:action="@{/member/login}">
+
+        <div class="errors global" th:if="${session.global != null}" th:text="${session.global}"></div>
+
+        <form method="post" th:action="@{/member/login}" autocomplete="off" >
             <div class="flex_form">
                 <table class="table-raw">
                     <tr>
-                        <th>아이디</th>
+                        <th th:text="#{memberId}"></th>
                         <td>
-                            <input type="text" name="memberId">
+                            <input type="text" name="memberId" th:value="${session.memberId}">
+                            <div class="errors" th:if="${session.requiredMemberId != null}" th:text="${session.requiredMemberId}"></div>
                         </td>
                     </tr>
                     <tr>
-                        <th>비밀번호</th>
+                        <th th:text="#{memberPw}"></th>
                         <td>
-                            <input type="password" name="memberId">
+                            <input type="password" name="memberPw">
+                            <div class="errors" th:if="${session.requiredMemberPw != null}" th:text="${session.requiredMemberPw}"></div>
                         </td>
                     </tr>
                 </table>
