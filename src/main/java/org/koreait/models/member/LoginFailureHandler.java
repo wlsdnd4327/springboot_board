@@ -21,7 +21,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         session.removeAttribute("requiredMemberPw");
         session.removeAttribute("global");
 
-        session.setAttribute("memberId",memberId);
+        session.setAttribute("memberId",memberId); // 로그인 템플릿 쪽에 메시지 표시 및 실패 시 로그인 아이디 값을 유지하기 위한 값.
 
         try{
             if(memberId == null || memberId.isBlank()){

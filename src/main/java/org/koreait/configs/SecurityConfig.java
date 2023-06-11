@@ -1,5 +1,6 @@
 package org.koreait.configs;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.koreait.models.member.LoginFailureHandler;
 import org.koreait.models.member.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
@@ -17,16 +18,39 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.formLogin()
-                .loginPage("/member/login")
-                .usernameParameter("memberId")
-                .passwordParameter("memberPw")
-                .successHandler(new LoginSuccessHandler())
-                .failureHandler(new LoginFailureHandler())
-                .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                .logoutSuccessUrl("/member/login");
+        http.formLogin(f->f
+                        .loginPage("/member/login")
+                        .usernameParameter("memberId")
+                        .passwordParameter("memberPw")
+                        .successHandler(new LoginSuccessHandler())
+                        .failureHandler(new LoginFailureHandler())
+                ).logout(f->f
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                        .logoutSuccessUrl("/member/login")
+                );
+
+        http.authorizeHttpRequests(f->f
+                .requestMatchers("/mypage/**").authenticated() // 회원 전용
+//                .requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 전용 -> 개발 중 disabled
+                .anyRequest().permitAll() // 그 외의 모든 페이지 접근 가능.
+        );
+
+        http.exceptionHandling(f->f
+                .authenticationEntryPoint((req,resp,e)->{
+                    String uri = req.getRequestURI();
+                    if(uri.indexOf("/admin") != -1){
+                        resp.sendError(HttpServletResponse.SC_UNAUTHORIZED,"NOT AUTHORIZED");
+                    }else{
+                        String redirectUrl = req.getContextPath() + "/member/login";
+                        resp.sendRedirect(redirectUrl);
+                    }
+                })
+        );
+
+        http.headers(f-> f
+                .frameOptions(d->d
+                        .sameOrigin())
+        );
 
         return http.build();
     }
