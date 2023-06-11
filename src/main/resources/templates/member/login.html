@@ -7,20 +7,20 @@
 
         <div class="errors global" th:if="${session.global != null}" th:text="${session.global}"></div>
 
-        <form method="post" th:action="@{/member/login}" autocomplete="off" >
+        <form method="post" th:action="@{/member/login}" autocomplete="off" th:object="${loginForm}">
             <div class="flex_form">
                 <table class="table-raw">
                     <tr>
                         <th th:text="#{memberId}"></th>
                         <td>
-                            <input type="text" name="memberId" th:value="${session.memberId}">
+                            <input type="text" name="memberId" th:field="*{memberId}">
                             <div class="errors" th:if="${session.requiredMemberId != null}" th:text="${session.requiredMemberId}"></div>
                         </td>
                     </tr>
                     <tr>
                         <th th:text="#{memberPw}"></th>
                         <td>
-                            <input type="password" name="memberPw">
+                            <input type="password" name="memberPw" th:field="*{memberPw}">
                             <div class="errors" th:if="${session.requiredMemberPw != null}" th:text="${session.requiredMemberPw}"></div>
                         </td>
                     </tr>
@@ -29,7 +29,12 @@
                     <button type="submit" th:text="#{member.action.login}"></button>
                 </div>
             </div>
+            <div>
+                <input type="checkbox" name="saveId" value="true" id="saveId" th:field="*{saveId}">
+                <label for="saveId" th:text="#{member.saveId}"></label>
+            </div>
             <span>
+
                 <a th:href="@{/member/findId}">
                     <i class="xi-user" th:text="#{member.findId}"></i>
                 </a>

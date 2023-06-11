@@ -1,5 +1,6 @@
 package org.koreait.controllers.member;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.CommonFunc;
@@ -7,9 +8,7 @@ import org.koreait.models.member.MemberSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/member")
@@ -46,7 +45,18 @@ public class MemberController{
     }
 
     @GetMapping("/login")
-    public String login(Model model){
+    public String login(@ModelAttribute LoginForm loginForm, HttpSession session,
+                        @CookieValue(required = false) String saveId, Model model){
+        if(saveId != null){
+            loginForm.setMemberId(saveId);
+            loginForm.setSaveId(true);
+        }
+
+        String memberId = (String) session.getAttribute("memberId");
+        if(memberId != null){
+            loginForm.setMemberId(memberId);
+        }
+
         commonProcess(model,"로그인");
         return "member/login";
     }
