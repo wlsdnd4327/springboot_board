@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.CommonFunc;
+import org.koreait.models.member.FindMemberService;
 import org.koreait.models.member.MemberSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,16 +16,19 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MemberController{
 
+    private final FindMemberService findMemberService;
     private final MemberSaveService saveService;
     private final JoinValidator validator;
 
     @GetMapping("/join")
     public String join(Model model){
+
         commonProcess(model, "회원가입");
+
         JoinForm joinForm = new JoinForm();
+
         model.addAttribute("joinForm",joinForm);
 
-        model.addAttribute("addCss","style2");
         return "member/join";
     }
 
@@ -39,7 +43,6 @@ public class MemberController{
         saveService.save(joinForm);
 
         model.addAttribute("joinForm",joinForm);
-        model.addAttribute("addCss","style2");
 
         return "redirect:/member/login";
     }
@@ -61,7 +64,20 @@ public class MemberController{
         return "member/login";
     }
 
+    @GetMapping("/findId")
+    public String findId(@Valid FindForm findForm, Errors errors, Model model){
+        commonProcess(model,"아이디 찾기");
+        return "member/findid";
+    }
+
+    @GetMapping("/findPw")
+    public String findPw(@ModelAttribute FindForm findForm, Model model){
+        commonProcess(model,"비밀번호 찾기");
+        return "member/findpw";
+    }
+
     public void commonProcess(Model model, String title) {
+        model.addAttribute("addCss","style2");
         model.addAttribute("title",title);
     }
 }

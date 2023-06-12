@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{/layouts/main2}">
+    <section layout:fragment="content">
+        <!-- 회원명과 이메일 주소로 아이디 찾기-->
+        <form method="post" th:action="@{/member/findId}" autocomplete="off">
+            <div>
+                <p th:text="#{member.findId.comment}"></p>
+                <div>
+                    <label for="findId name" th:text="#{memberNm}"></label>
+                    <input type="text" name="findId" id="findId name">
+                </div>
+                <div>
+                    <label for="findId email" th:text="#{email}"></label>
+                    <input type="text" name="findId" id="findId email">
+                </div>
+                <button type="submit" th:text="#{member.findId}"></button>
+            </div>
+        </form>
+    </section>
+</html>

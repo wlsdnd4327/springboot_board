@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layouts/main2}">
+<section layout:fragment="content">
+    <form method="post" th:action="@{/member/findPw}" autocomplete="off">
+        <p th:text="#{member.findPw.comment}"></p>
+            <div>
+                <label for="findPw Id" th:text="#{memberId}"></label>
+                <input type="text" name="findPw" id="findPw Id">
+            </div>
+        <button type="submit" th:text="#{member.findPw}"></button>
+    </form>
+</section>
+</html>

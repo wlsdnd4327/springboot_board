@@ -12,7 +12,7 @@
 
 ## Trouble Shooting
 
-### Day01 2023.06.01
+### 구현 내용
 - 스프링 부트 기본 설정 완료
 - 관리자 페이지
   - 레이아웃 / 아웃라인
@@ -32,5 +32,12 @@
     - List<GrantedAuthority> authorities
       - 시큐리티 인가 기능에서 사용하는 값.(회원의 권한 확인)
       - .requestMatchers("/admin/**").hasAuthority("ADMIN") // 사용 예시
+    - MemberUtil : 회원 인가관련 편의 기능.
   - 로그인 성공 및 실패 시 세션처리 및 이동 페이지 Handling - spring 시큐리티
   - 아이디 저장 기능 추가 - 쿠키 애너테이션
+- 회원탈퇴 기능
+  - 회원 정보 삭제
+  - 회원 탈퇴 확인 js 추가(정말로 탈퇴하시겠습니까?)
+- 회원 아이디 & 비밀번호 찾기 기능
+  - repository에 추가.
+  - MySql index로 조회하는 법 복습...

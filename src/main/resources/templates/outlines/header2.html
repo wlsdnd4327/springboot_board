@@ -5,6 +5,9 @@
         <section>
             <div class="front-logo">
             </div>
+            <a th:href="@{/}">
+                <i class="xi-home-o" th:text="#{mainPage}"></i>
+            </a>
             <th:block sec:authorize="isAnonymous()">
                 <a th:href="@{/member/login}">
                     <i class="xi-log-in" th:text="#{login}"></i>

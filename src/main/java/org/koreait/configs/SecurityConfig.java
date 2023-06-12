@@ -31,7 +31,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(f->f
                 .requestMatchers("/mypage/**").authenticated() // 회원 전용
-//                .requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 전용 -> 개발 중 disabled
+//                .requestMatchers("/instructor/**").hasAuthority("INSTRUCTOR")// 강사 전용 - 강의등록 페이지
+//                .requestMatchers("/admin/**", "/instructor/**").hasAuthority("ADMIN") // 관리자 전용 -> 개발 중 disabled
                 .anyRequest().permitAll() // 그 외의 모든 페이지 접근 가능.
         );
 

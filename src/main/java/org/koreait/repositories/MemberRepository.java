@@ -10,6 +10,10 @@ public interface MemberRepository extends JpaRepository<MemberEntity,Long>,
 
     MemberEntity findByMemberId(String memberId); // 아이디로 멤버 조회
 
+    MemberEntity findByMemberNm(String memberNm); // 이름으로 멤버 조회
+    
+    MemberEntity findByEmail(String email); // 이메일로 멤버 조회
+
     // 회원 아이디 중복체크
     default boolean isExist(String memberId){
         QMemberEntity member = QMemberEntity.memberEntity;
