@@ -39,5 +39,13 @@
   - 회원 정보 삭제
   - 회원 탈퇴 확인 js 추가(정말로 탈퇴하시겠습니까?)
 - 회원 아이디 & 비밀번호 찾기 기능
-  - repository에 추가.
-  - MySql index로 조회하는 법 복습...
+  - controller
+    - findId 
+    - findPw
+    - findForm 커맨드 객체(회원명, 회원이메일, 회원 아이디)
+  - templates
+    - findid
+    - findpw
+  - model/member
+    - FindMemberService
+    - WrongInfoException

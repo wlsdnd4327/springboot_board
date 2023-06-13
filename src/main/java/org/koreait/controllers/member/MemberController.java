@@ -65,13 +65,25 @@ public class MemberController{
     }
 
     @GetMapping("/findId")
-    public String findId(@Valid FindForm findForm, Errors errors, Model model){
+    public String findId(@ModelAttribute FindIdForm findIdForm, Model model){
+        commonProcess(model,"아이디 찾기");
+        return "member/findid";
+    }
+
+    @PostMapping("/findId")
+    public String findIdPs(@Valid FindIdForm findIdForm, Errors errors, Model model){
+
+        if(errors.hasErrors()){ return "member/findid"; }
+
+        String memberId = findMemberService.findId(findIdForm);
+
+        model.addAttribute("findIdData",memberId);
         commonProcess(model,"아이디 찾기");
         return "member/findid";
     }
 
     @GetMapping("/findPw")
-    public String findPw(@ModelAttribute FindForm findForm, Model model){
+    public String findPw(@ModelAttribute FindPwForm findPwForm, Model model){
         commonProcess(model,"비밀번호 찾기");
         return "member/findpw";
     }

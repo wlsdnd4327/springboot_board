@@ -4,19 +4,26 @@
         layout:decorate="~{/layouts/main2}">
     <section layout:fragment="content">
         <!-- 회원명과 이메일 주소로 아이디 찾기-->
-        <form method="post" th:action="@{/member/findId}" autocomplete="off">
+        <form method="post" th:action="@{/member/findId}" autocomplete="off" th:object="${findIdForm}">
             <div>
-                <p th:text="#{member.findId.comment}"></p>
+                <th:block th:if="${findIdData == null}">
+                    <p th:text="#{member.findId.comment}"></p>
+                </th:block>
+                <br>
+                <div class="errors" th:each="err: ${#fields.globalErrors()}" th:text="${err}"></div>
                 <div>
                     <label for="findId name" th:text="#{memberNm}"></label>
-                    <input type="text" name="findId" id="findId name">
+                    <input type="text" name="findId" id="findId name" th:field="*{memberNm}">
+                    <div class="errors" th:each="err : ${#fields.errors('memberNm')}" th:text="${err}"></div>
                 </div>
                 <div>
                     <label for="findId email" th:text="#{email}"></label>
-                    <input type="text" name="findId" id="findId email">
+                    <input type="text" name="findId" id="findId email" th:field="*{email}">
+                    <div class="errors" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
                 </div>
                 <button type="submit" th:text="#{member.findId}"></button>
             </div>
         </form>
+        <th:block th:replace="~{member/_findinfo::findInfo}"></th:block>
     </section>
 </html>
