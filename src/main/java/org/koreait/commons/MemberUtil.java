@@ -1,6 +1,7 @@
 package org.koreait.commons;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.koreait.commons.constants.Role;
 import org.koreait.entities.MemberEntity;
 import org.koreait.models.member.MemberInfo;
@@ -8,9 +9,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class MemberUtil {
 
-    HttpSession session;
+    private final HttpSession session;
 
     /**
      * 로그인 여부 확인

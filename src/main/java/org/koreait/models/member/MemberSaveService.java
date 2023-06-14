@@ -1,6 +1,7 @@
 package org.koreait.models.member;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.constants.Role;
 import org.koreait.controllers.member.JoinForm;
 import org.koreait.entities.MemberEntity;
 import org.koreait.repositories.MemberRepository;
@@ -25,6 +26,7 @@ public class MemberSaveService {
                 .memberNm(joinForm.getMemberNm())
                 .email(joinForm.getEmail())
                 .mobile(joinForm.getMobile())
+                .role(Role.MEMBER)
                 .build();
 
         memberRepository.saveAndFlush(member);

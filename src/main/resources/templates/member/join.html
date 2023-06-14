@@ -5,6 +5,7 @@
     <h1 th:text="#{member.join}"></h1>
     <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
     <section layout:fragment="content">
+        <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
         <form name="form_join" method="post" th:action="@{/member/join}" autocomplete="off" th:object="${joinForm}">
             <dl>
                 <dt th:text="#{memberId}"></dt>
@@ -50,6 +51,7 @@
             </dl>
             <dl>
                 <dd>
+                    <textarea class="terms" th:text="${@siteConf.get('joinTerms')}"></textarea>
                     <input type="checkbox" value="true" name="agrees" id="agrees" th:field="*{agrees}">
                     <label for="agrees" th:text="#{member.terms.agree}"></label>
                 </dd>

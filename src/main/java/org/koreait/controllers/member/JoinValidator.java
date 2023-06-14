@@ -70,7 +70,7 @@ public class JoinValidator implements Validator, MobileFormValidator, PasswordFo
         }
 
         //5. 약관 동의 여부 체크
-        if(agrees != null && agrees.length > 0) {
+        if((agrees != null && agrees.length > 0)) {
             for (boolean agree : agrees) {
                 if (!agree) {
                     errors.reject("Validation.disAgree");
@@ -78,5 +78,7 @@ public class JoinValidator implements Validator, MobileFormValidator, PasswordFo
                 }
             }
         }
+
+
     }
 }
