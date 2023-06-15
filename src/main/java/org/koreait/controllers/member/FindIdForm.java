@@ -1,5 +1,6 @@
 package org.koreait.controllers.member;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -8,6 +9,6 @@ public class FindIdForm {
 
     @NotBlank
     private String memberNm;
-    @NotBlank
+    @NotBlank @Email
     private String email;
 }

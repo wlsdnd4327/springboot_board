@@ -25,27 +25,33 @@
 - Regex 이넘 클래스 : 정규표현식을 이넘 객체에 저장.
 
 회원 관련 기능 구현
-- 회원가입 기능
+1. [x] 회원가입 기능
   - 회원 정보 추가/ 수정
-- 로그인 기능
+2. [x] 로그인 기능
   - 회원 정보 조회(UserDetails & UserDetailsService 구현) - spring 시큐리티
     - List<GrantedAuthority> authorities
       - 시큐리티 인가 기능에서 사용하는 값.(회원의 권한 확인)
       - .requestMatchers("/admin/**").hasAuthority("ADMIN") // 사용 예시
     - MemberUtil : 회원 인가관련 편의 기능.
   - 로그인 성공 및 실패 시 세션처리 및 이동 페이지 Handling - spring 시큐리티
-  - 아이디 저장 기능 추가 - 쿠키 애너테이션
-- 회원탈퇴 기능
-  - 회원 정보 삭제
-  - 회원 탈퇴 확인 js 추가(정말로 탈퇴하시겠습니까?)
-- 회원 아이디 & 비밀번호 찾기 기능
+  - 아이가디 저장 기능 추 - 쿠키 애너테이션
+    - Controller에 @CookieValue 애너테이션 추가 및 LoginSuccessHandler 상에 로그인 성공 시 쿠키 객체 생성 쿠키 추가함.
+3. [X] 회원탈퇴 기능(구현중)
+   - 마이페이지 → 회원탈퇴 버튼 → 회원 탈퇴 폼으로 이동 → 회원 아이디(로그인한 회원 아이디)/ 회원 비밀번호(입력) / 삭제하겠습니다.
+     → 입력 비밀번호와 로그인 회원 비밀번호 일치 여부 확인 → true : 회원 탈퇴 확인, false : 비밀번호가 일치하지 않습니다.
+     - 회원 탈퇴 서비스
+   - 로그인 회원 비밀번호 해쉬 복호화 불가.. -> 일치 여부 확인 어떻게..? -> PasswordEncoder .matches(입력 비번, 해시화된 비번) 사용
+4. [ ] 회원 아이디 & 비밀번호 찾기 기능
   - controller
     - findId 
     - findPw
-    - findForm 커맨드 객체(회원명, 회원이메일, 회원 아이디)
+    - findIdForm 커맨드 객체(회원명, 회원이메일)
+    - findPwForm 커맨드 객체(회원아이디)
   - templates
     - findid
     - findpw
   - model/member
     - FindMemberService
     - WrongInfoException
+5. [ ] 부가 기능
+   - js 확인 메시지(confirm && alert) 추가(정말로 탈퇴하시겠습니까?) -> 구현중

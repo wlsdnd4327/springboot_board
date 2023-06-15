@@ -41,6 +41,8 @@ public class JoinValidator implements Validator, MobileFormValidator, PasswordFo
         String mobile = joinForm.getMobile();
         boolean[] agrees = joinForm.getAgrees();
 
+        System.out.println(agrees + "👉");
+
         //1. 아이디 중복 체크
         if(!memberId.isBlank() && memberId != null && repository.isExist(memberId)){
             errors.rejectValue("memberId","Validation.duplicate.memberId");
@@ -70,15 +72,18 @@ public class JoinValidator implements Validator, MobileFormValidator, PasswordFo
         }
 
         //5. 약관 동의 여부 체크
+        /**
+         * 체크하면 true, 아니면 null 반환.
+         */
         if((agrees != null && agrees.length > 0)) {
             for (boolean agree : agrees) {
                 if (!agree) {
-                    errors.reject("Validation.disAgree");
+                    errors.rejectValue("agrees","Validation.disAgree");
                     break;
                 }
             }
+        }else if(agrees.length ==0 && agrees != null){
+            errors.rejectValue("agrees","Validation.disAgree");
         }
-
-
     }
 }

@@ -3,7 +3,6 @@
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{layouts/main2}">
     <h1 th:text="#{member.join}"></h1>
-    <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
     <section layout:fragment="content">
         <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
         <form name="form_join" method="post" th:action="@{/member/join}" autocomplete="off" th:object="${joinForm}">
@@ -52,8 +51,9 @@
             <dl>
                 <dd>
                     <textarea class="terms" th:text="${@siteConf.get('joinTerms')}"></textarea>
-                    <input type="checkbox" value="true" name="agrees" id="agrees" th:field="*{agrees}">
+                    <input type="checkbox" value="true" name="agrees" id="agrees" th:field="*{agrees}" >
                     <label for="agrees" th:text="#{member.terms.agree}"></label>
+                    <div class="errors" th:each="err : ${#fields.errors('agrees')}" th:text="${err}"></div>
                 </dd>
             </dl>
             <div class="btns">

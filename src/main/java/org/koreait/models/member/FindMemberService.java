@@ -6,7 +6,6 @@ import org.koreait.entities.MemberEntity;
 import org.koreait.repositories.MemberRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.Errors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,7 +30,7 @@ public class FindMemberService {
 
         MemberEntity findData = repository.findByMemberNm(findMemberNm);
 
-        if(findData == null) {throw new MemberDataNotExistsException();}
+        if(findData == null) { return null;}
 
         if(!findMemberEmail.equals(findData.getEmail())){
             throw new WrongInfoException("Validation.wrong.email",HttpStatus.BAD_REQUEST);
