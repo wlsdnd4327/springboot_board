@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <main layout:fragment="content">
+        <form name="frmSave" th:action="@{/board/save}" autocomplete="off">
+            <th:block th:replace="~{board/_form::form}"></th:block>
+            <div class="btns">
+                <button type="button" th:text="#{board.list}"></button>
+                <button type="submit" th:text="#{board.write}"></button>
+            </div>
+        </form>
+    </main>
+</html>

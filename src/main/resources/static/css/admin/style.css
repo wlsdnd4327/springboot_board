@@ -13,7 +13,7 @@ img { border: 0;}
 /** 관리자 레이아웃 기본스타일 */
 
 main {min-width: 1100px; min-height: 800px; display: flex;}
-main > aside { width: 208px; background:#B2EBF4;}
+main > aside { width: 208px; background:#dceef0;}
 main > section {flex-grow: 1; margin: 50px;}
 
 .dn {display:none !important;}

@@ -1,4 +1,5 @@
 /**서브메뉴 스타일*/
 nav.submenus{box-shadow:1px 1px 5px #cdced5; margin-bottom:30px; display:flex; height:60px;}
 nav.submenus a{padding:0 40px; font-size:18px; line-height:60px;}
+nav.submenus a:hover{background-color:#a6dae0;}
 p{font-size:18px; font-weight:600;}
