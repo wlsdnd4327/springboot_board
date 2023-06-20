@@ -1,9 +1,10 @@
 package org.koreait.models.member;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.koreait.entities.MemberEntity;
+import org.koreait.commons.MemberUtil;
 import org.koreait.repositories.MemberRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,22 +12,22 @@ import org.springframework.stereotype.Service;
 public class MemberWithdrawalService {
 
     private final MemberRepository repository;
+    private final MemberUtil memberUtil;
+    private final PasswordEncoder passwordEncoder;
 
-    /**
-     * 회원 탈퇴 기능
-     * 마이페이지 안에 만들기
-     * 입력 받은 회원 비밀번호가 로그인한 회원 비밀번호와 일치하다면, 삭제 아니면, 삭제 실패 반환.
-     * 삭제 시 세션도 만료할 것.
-     * @param memberId
-     */
-    public void withdrawal(String memberId){
-        MemberEntity memberEntity = repository.findByMemberId(memberId);
+    public void withdrawal(String memberPw){
+        if(memberUtil.isLogin()) {
+            MemberInfo memberInfo = memberUtil.getMember();
+            String id = memberInfo.getMemberId();
+            String pw = memberInfo.getMemberPw();
 
-        if(memberEntity == null) return;
+            boolean match = passwordEncoder.matches(memberPw, pw);
 
-        repository.delete(memberEntity);
-        repository.flush();
+            if (!match) {
+                throw new WrongInfoException("Validation.memberPw.notMatch", HttpStatus.BAD_REQUEST);
+            }
+            repository.delete(repository.findByMemberId(id));
+            repository.flush();
+        }
     }
-
-
 }

@@ -2,41 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org"
         xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <header th:fragment="common">
-        <section>
+        <section class="front-menu">
             <div class="front-logo">
+                <h1>로고</h1>
             </div>
-            <a th:href="@{/}">
-                <i class="xi-home-o" th:text="#{mainPage}"></i>
-            </a>
-            <th:block sec:authorize="isAnonymous()">
-                <a th:href="@{/member/login}">
-                    <i class="xi-log-in" th:text="#{login}"></i>
+            <div class="header-right">
+                <a th:href="@{/}">
+                    <i class="xi-home-o" th:text="#{mainPage}"></i>
                 </a>
-                <a th:href="@{/member/join}">
-                    <i class="xi-users-plus" th:text="#{member.join}"></i>
-                </a>
-            </th:block>
-            <th:block sec:authorize="isAuthenticated()">
-                <span th:text="${#messages.msg('member.login.msg', session.memberInfo.memberNm, session.memberInfo.memberId)}"></span>
+                <th:block sec:authorize="isAnonymous()">
+                    <a th:href="@{/member/login}">
+                        <i class="xi-log-in" th:text="#{login}"></i>
+                    </a>
+                    <a th:href="@{/member/join}">
+                        <i class="xi-users-plus" th:text="#{member.join}"></i>
+                    </a>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <span th:text="${#messages.msg('member.login.msg', session.memberInfo.memberNm, session.memberInfo.memberId)}"></span>
 
-                <a th:href="@{/member/mypage}">
-                    <i class="xi-user-o" th:text="#{member.mypage}"></i>
-                </a>
-                <a th:href="@{/member/instructor}">
-                    <i class="xi-document" th:text="#{member.register.instructor}"></i>
-                </a>
-                <a th:href="@{/member/logout}" >
-                    <i class="xi-log-out" th:text="#{member.logout}"></i>
-                </a>
-                <a th:href="@{/member/withdrawal}" th:text="#{withdrawal}"></a>
-            </th:block>
+                    <a th:href="@{/member/mypage}">
+                        <i class="xi-user-o" th:text="#{member.mypage}"></i>
+                    </a>
+                    <a th:href="@{/member/instructor}">
+                        <i class="xi-document" th:text="#{member.register.instructor}"></i>
+                    </a>
+                    <a th:href="@{/member/logout}" >
+                        <i class="xi-log-out" th:text="#{member.logout}"></i>
+                    </a>
+                    <a th:href="@{/member/withdrawal}" th:text="#{withdrawal}"></a>
+                </th:block>
+            </div>
         </section>
         <section class="front-navbar">
             <div class="front-category">
+                <span>
+                    <i class="xi-bars"></i>
+                </span>
                 <a th:text="#{category}"></a>
             </div>
             <div class="front-board">
-                <a th:text="#{board}"></a>
+                <a>자유 게시판</a>
+                <a>일반 게시판</a>
+                <a>자유 게시판</a>
             </div>
         </section>
     </header>

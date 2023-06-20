@@ -3,12 +3,13 @@
         xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{/layouts/main2}">
     <section layout:fragment="content">
+        <h1 th:text="#{member.findId}"></h1>
+        <th:block th:if="${findIdData == null}">
+            <p th:text="#{member.findId.comment}"></p>
+        </th:block>
         <!-- 회원명과 이메일 주소로 아이디 찾기-->
         <form method="post" th:action="@{/member/findId}" autocomplete="off" th:object="${findIdForm}">
             <div>
-                <th:block th:if="${findIdData == null}">
-                    <p th:text="#{member.findId.comment}"></p>
-                </th:block>
                 <br>
                 <div class="errors" th:each="err: ${#fields.globalErrors()}" th:text="${err}"></div>
                 <div>

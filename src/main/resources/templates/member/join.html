@@ -4,6 +4,7 @@
     layout:decorate="~{layouts/main2}">
     <h1 th:text="#{member.join}"></h1>
     <section layout:fragment="content">
+        <h1 th:text="#{member.join}"></h1>
         <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
         <form name="form_join" method="post" th:action="@{/member/join}" autocomplete="off" th:object="${joinForm}">
             <dl>

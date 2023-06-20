@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/main2}">
+<section layout:fragment="content">
+    <h1 th:text="${title}"></h1>
+    <form method="post" name="frmResetPw" autocomplete="off" th:object="${joinForm}">
+        <table class="table-cols">
+            <tr>
+                <th>새 비밀번호</th>
+                <td>
+                    <input type="password" th:field="*{memberPw}">
+                    <div class="errors" th:each="err : ${#fields.errors('memberPw')}" th:text="${err}"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <th>비밀번호 확인</th>
+                <td>
+                    <input type="password" th:field="*{memberPwRe}">
+                    <div class="errors" th:each="err : ${#fields.errors('memberPwRe')}" th:text="${err}"></div>
+                </td>
+            </tr>
+        </table>
+        <div>
+            <button type="submit">비밀번호 저장</button>
+        </div>
+    </form>
+</section>
+</html>

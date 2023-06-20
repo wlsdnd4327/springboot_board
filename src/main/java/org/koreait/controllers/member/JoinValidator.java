@@ -32,16 +32,14 @@ public class JoinValidator implements Validator, MobileFormValidator, PasswordFo
      */
     @Override
     public void validate(Object target, Errors errors) {
-        if(target == null){errors.reject("Validation.notExist");}
 
         JoinForm joinForm = (JoinForm) target;
+
         String memberId = joinForm.getMemberId();
         String memberPw = joinForm.getMemberPw();
         String memberPwRe = joinForm.getMemberPwRe();
         String mobile = joinForm.getMobile();
         boolean[] agrees = joinForm.getAgrees();
-
-        System.out.println(agrees + "👉");
 
         //1. 아이디 중복 체크
         if(!memberId.isBlank() && memberId != null && repository.isExist(memberId)){
@@ -66,24 +64,23 @@ public class JoinValidator implements Validator, MobileFormValidator, PasswordFo
             if (!checkForm(mobile)) {
                 errors.rejectValue("mobile", "Validation.discord.mobile");
             }
-
+            
+            // db 저장될 휴대전화 번호 양식 변경
             mobile = mobile.replaceAll("\\D","");
             joinForm.setMobile(mobile);
         }
 
         //5. 약관 동의 여부 체크
-        /**
-         * 체크하면 true, 아니면 null 반환.
-         */
-        if((agrees != null && agrees.length > 0)) {
+        if(agrees != null && agrees.length >= 0) {
             for (boolean agree : agrees) {
                 if (!agree) {
                     errors.rejectValue("agrees","Validation.disAgree");
                     break;
                 }
             }
-        }else if(agrees.length ==0 && agrees != null){
-            errors.rejectValue("agrees","Validation.disAgree");
+            if(agrees.length == 0){
+                errors.rejectValue("agrees","Validation.disAgree");
+            }
         }
     }
 }

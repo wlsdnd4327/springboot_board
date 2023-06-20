@@ -8,13 +8,19 @@ dl, dt, dd {margin: 0; padding: 0;}
 a {text-decoration: none;}
 img { border: 0;}
 
-.layout_width {max-width: 1300px; min-width: 1100px; margin: 0 auto; padding: 0 10px;}
+.layout_width {max-width: 1300px; min-width: 1100px; margin:0 auto; padding: 0 10px;}
 
-/** 관리자 레이아웃 기본스타일 */
+/** 프론트 레이아웃 기본스타일 */
+header > section {width: 1200px; height:50px;}
+.front-menu { display: flex; justify-content: space-between; margin:0 auto; flex-direction: row; align-items: center;}
+.front-navbar {display: flex; margin: 0 auto; align-items: center; flex-direction: row;}
+.front-category {padding:5px;}
+.front-board,
+.front-board a {padding:5px;}
 
-main {min-width: 1100px; min-height: 800px; display: flex;}
-main > aside { width: 208px; background:#B2EBF4;}
-main > section {flex-grow: 1; margin: 50px;}
+
+main {min-width: 1200px; min-height: 800px; display: flex;}
+main > section { width: 1200px; flex-grow: 1; margin: 50px;}
 
 .dn {display:none !important;}
 
