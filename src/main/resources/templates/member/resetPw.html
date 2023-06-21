@@ -4,7 +4,8 @@
       layout:decorate="~{layouts/main2}">
 <section layout:fragment="content">
     <h1 th:text="${title}"></h1>
-    <form method="post" name="frmResetPw" autocomplete="off" th:object="${joinForm}">
+    <form method="post" th:action="@{/member/resetPw}" name="frmResetPw" autocomplete="off" th:object="${joinForm}">
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}">
         <table class="table-cols">
             <tr>
                 <th>새 비밀번호</th>

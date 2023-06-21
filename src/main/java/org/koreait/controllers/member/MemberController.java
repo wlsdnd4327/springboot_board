@@ -109,14 +109,15 @@ public class MemberController {
     }
 
     @PostMapping("/findPw")
-    public String findPwPs(String memberId, Model model) {
+    public String findPwPs(String memberId, Model model, HttpSession session) {
         commonProcess(model, "비밀번호 찾기");
         try {
             long memberNo = findMemberService.findPw(memberId);
-            return "redirect:/member/resetPw/" + memberNo;
+            session.setAttribute("memberNo", memberNo);
+            return "redirect:/member/resetPw";
         } catch (Exception e) {
             e.printStackTrace();
-            String script = String.format("Swal.fire('회원을 찾을 수 없습니다.', '', 'error').then(function(){history.go(-1);})");
+            String script = String.format("Swal.fire('회원을 찾을 수 없습니다!!', '', 'error').then(function(){history.go(-1);})");
             model.addAttribute("script", script);
             model.addAttribute("memberId",memberId);
             return "common/sweet_script";
@@ -124,25 +125,33 @@ public class MemberController {
     }
 
     // 회원 비번 설정하기
-    @GetMapping("/resetPw/{no}")
-    public String resetPw(@PathVariable long no, @ModelAttribute JoinForm joinForm, Model model) {
+    @GetMapping("/resetPw")
+    public String resetPw(@ModelAttribute JoinForm joinForm, Model model) {
         commonProcess(model, "새 비밀번호 설정");
         return "member/resetPw";
     }
 
-    @PostMapping("/resetPw/{no}")
-    public String resetPwPs(@PathVariable long no,@ModelAttribute JoinForm joinForm, Errors errors, Model model) {
+
+    @PostMapping("/resetPw")
+    public String resetPwPs(@ModelAttribute JoinForm joinForm, Errors errors, Model model, HttpSession session) {
+
+        Long memberNo = (Long)session.getAttribute("memberNo");
+
+        if (memberNo == null) {
+            throw new RuntimeException("잘못된 접근입니다.");
+        }
+
         String memberPw = joinForm.getMemberPw();
+
         try{
             joinValidator.validate(joinForm,errors);
-
             if(errors.hasErrors()){
                 return "member/resetPw";
             }
-
-            updateService.updatePw(no,memberPw);
+            updateService.updatePw(memberNo,memberPw);
         }catch(Exception e){
-            return "member/findpw";
+            e.printStackTrace();
+            return "redirect:/member/findPw";
         }
 
         String script = "Swal.fire('수정 완료!', '', 'success').then(function(){location.href='/member/login';})";
@@ -162,37 +171,37 @@ public class MemberController {
 
     @PostMapping("/withdrawal")
     public String withdrawalPs(Model model, HttpSession httpSession, String memberPw, String withdrawalMsg){
+
+        commonProcess(model, "회원 탈퇴");
+
         MessageDto message = null;
 
         if(!withdrawalMsg.isBlank() && withdrawalMsg != null) {
 
             withdrawalService.withdrawal(memberPw);
 
-            message = new MessageDto("회원 탈퇴가 완료되었습니다.", "/member/login", RequestMethod.GET, null);
+            String script = "Swal.fire('회원 탈퇴가 완료되었습니다.', '', 'success').then(function(){location.href='/member/login';})";
+
+            model.addAttribute("script",script);
 
             httpSession.removeAttribute("memberInfo");
 
             httpSession.invalidate();
 
-            return showMsgAndRedirect(message, model);
+            return "common/sweet_script";
 
         }else {
 
-            message = new MessageDto("확인 메시지 입력 바랍니다.","/member/withdrawal",RequestMethod.GET,null);
+            String script = "Swal.fire('확인 메시지 입력 바랍니다.', '', 'error').then(function(){history.go(-1);})";
 
-            commonProcess(model, "회원 탈퇴");
+            model.addAttribute("script",script);
 
-            return "member/withdrawal";
+            return "common/sweet_script";
         }
     }
 
     private void commonProcess(Model model, String title) {
         model.addAttribute("addCss","style2");
         model.addAttribute("title",title);
-    }
-
-    private String showMsgAndRedirect(MessageDto params, Model model){
-        model.addAttribute("params",params);
-        return "common/messageRedirect";
     }
 }

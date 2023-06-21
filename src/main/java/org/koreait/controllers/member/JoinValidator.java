@@ -42,32 +42,40 @@ public class JoinValidator implements Validator, MobileFormValidator, PasswordFo
         boolean[] agrees = joinForm.getAgrees();
 
         //1. 아이디 중복 체크
-        if(!memberId.isBlank() && memberId != null && repository.isExist(memberId)){
-            errors.rejectValue("memberId","Validation.duplicate.memberId");
+        if( memberId != null){
+            if(!memberId.isBlank() && repository.isExist(memberId)) {
+                errors.rejectValue("memberId", "Validation.duplicate.memberId");
+            }
         }
 
-        if(!memberPw.isBlank() && memberPw!=null){
+        if(memberPw!=null){
+            if(!memberPw.isBlank()) {
 
-            //2. 비밀번호 - 비밀번호 확인 동일 여부 체크
-            if(!memberPwRe.isBlank() && memberPwRe != null && !memberPw.equals(memberPwRe)) {
-                errors.rejectValue("memberPwRe", "Validation.discord.password");
-            }
+                //2. 비밀번호 - 비밀번호 확인 동일 여부 체크
+                if (memberPwRe != null) {
+                    if(!memberPwRe.isBlank() && !memberPw.equals(memberPwRe)) {
+                        errors.rejectValue("memberPwRe", "Validation.discord.password");
+                    }
+                }
 
-            //3. 비밀번호 - 형식 특수성 일치 여부 체크 -> 정규 표현식
-            if(!alphabetCheck(memberPw,true) || !numberCheck(memberPw) || !specialCheck(memberPw)){
-                errors.rejectValue("memberPw","Validation.complexity.password");
+                //3. 비밀번호 - 형식 특수성 일치 여부 체크 -> 정규 표현식
+                if (!alphabetCheck(memberPw, true) || !numberCheck(memberPw) || !specialCheck(memberPw)) {
+                    errors.rejectValue("memberPw", "Validation.complexity.password");
+                }
             }
         }
 
         //4. 휴대전화 번호 양식 일치 여부 체크
-        if(!mobile.isBlank() && mobile != null) {
-            if (!checkForm(mobile)) {
-                errors.rejectValue("mobile", "Validation.discord.mobile");
+        if(mobile != null) {
+            if(!mobile.isBlank() ) {
+                if (!checkForm(mobile)) {
+                    errors.rejectValue("mobile", "Validation.discord.mobile");
+                }
+
+                // db 저장될 휴대전화 번호 양식 변경
+                mobile = mobile.replaceAll("\\D", "");
+                joinForm.setMobile(mobile);
             }
-            
-            // db 저장될 휴대전화 번호 양식 변경
-            mobile = mobile.replaceAll("\\D","");
-            joinForm.setMobile(mobile);
         }
 
         //5. 약관 동의 여부 체크
