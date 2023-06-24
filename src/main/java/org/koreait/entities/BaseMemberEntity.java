@@ -8,7 +8,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseMemberEntity extends BaseEntity{
@@ -16,7 +15,7 @@ public class BaseMemberEntity extends BaseEntity{
     @CreatedBy
     @Column(updatable = false)
     private String createdBy;
-
+ 
     @LastModifiedBy
     @Column(insertable = false)
     private String updatedBy;
