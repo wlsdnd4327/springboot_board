@@ -35,9 +35,13 @@ public interface PasswordFormValidator {
         return matcher.find();
     }
 
-        default boolean specialCheck(String memberPw){
+    default boolean specialCheck(String memberPw){
         Pattern pattern = Pattern.compile(Regex.SPECIAL.getValue());
         Matcher matcher = pattern.matcher(memberPw);
         return matcher.find();
+    }
+
+    default boolean pwNpwRecheck(String memberPw, String memberPwRe){
+        return memberPw.equals(memberPwRe);
     }
 }

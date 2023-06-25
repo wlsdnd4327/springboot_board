@@ -10,7 +10,7 @@
     </title>
     <meta name="siteDescription" th:content="${@siteConf.get('siteDescription')}">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css?v={v}(v=${@siteConf.get('cssJsVersion')})}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style2.css?v={v}(v=${@siteConf.get('cssJsVersion')})}">
     <link rel="stylesheet" type="text/css" th:each="file : ${addCss}" th:href="@{/css/{cssFile}.css?v={v}(cssFile=${file},v=${@siteConf.get('cssJsVersion')})}">
     <th:block layout:fragment="addCss"></th:block>
 

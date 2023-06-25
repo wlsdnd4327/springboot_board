@@ -22,14 +22,14 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
          */
         HttpSession session = request.getSession();
         session.removeAttribute("memberId");
-        session.removeAttribute("RequiredMemberId");
-        session.removeAttribute("RequiredMemberPw");
+        session.removeAttribute("requiredMemberId");
+        session.removeAttribute("requiredMemberPw");
         session.removeAttribute("global");
 
         MemberInfo memberInfo = (MemberInfo) authentication.getPrincipal();
         session.setAttribute("memberInfo",memberInfo);
 
-        Cookie cookie = new Cookie("savedId",request.getParameter("memberId"));
+        Cookie cookie = new Cookie("saveId",request.getParameter("memberId"));
 
         if (request.getParameter("saveId") == null) { // 쿠기 제거
             cookie.setMaxAge(0);

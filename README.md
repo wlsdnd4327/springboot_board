@@ -41,19 +41,22 @@
      → 입력 비밀번호와 로그인 회원 비밀번호 일치 여부 확인 → true : 회원 탈퇴 확인, false : 비밀번호가 일치하지 않습니다.
      - 회원 탈퇴 서비스
    - 로그인 회원 비밀번호 해쉬 복호화 불가.. -> 일치 여부 확인 어떻게..? -> PasswordEncoder .matches(입력 비번, 해시화된 비번) 사용
-4. [ ] 회원 아이디 & 비밀번호 찾기 기능
+4. [X] 회원 아이디 & 비밀번호 찾기 및 비밀번호 변경 기능 구현
   - controller
     - findId - 회원명과 회원 이메일로 아이디 찾기. 
-    - findPw - 회원 아이디와 휴대전화 번호로 비밀번호 찾기.
+    - findPw - 회원 아이디로 비밀번호 찾기.
     - findIdForm 커맨드 객체.(회원명, 회원이메일)
+    - PwResetForm
+    - PwValidator
   - templates
     - findid
     - findpw
+    - resetPw
   - model/member
     - FindMemberService
     - WrongInfoException
-5. [ ] 부가 기능
-   - js 확인 메시지(confirm && alert) 추가(정말로 탈퇴하시겠습니까?) -> 구현중
+5. [X] 부가 기능
+   - js 확인 메시지(confirm && alert) 추가(정말로 탈퇴하시겠습니까?) -> SweetAlert 사용.
 
 ### 게시판
 6/18

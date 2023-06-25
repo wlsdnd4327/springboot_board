@@ -1,5 +1,8 @@
 package org.koreait.controllers.member;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,7 @@ public class MemberController {
     private final MemberUpdateService updateService;
     private final MemberWithdrawalService withdrawalService;
     private final JoinValidator joinValidator;
+    private final PwValidator pwValidator;
 
 
     // 회원가입
@@ -72,6 +76,13 @@ public class MemberController {
 
         commonProcess(model, "로그인");
         return "member/login";
+    }
+
+    //마이페이지
+    @GetMapping("/mypage")
+    public String mypage(Model model){
+        commonProcess(model,"마이페이지");
+        return "member/mypage";
     }
 
     //회원 아이디 찾기
@@ -126,14 +137,15 @@ public class MemberController {
 
     // 회원 비번 설정하기
     @GetMapping("/resetPw")
-    public String resetPw(@ModelAttribute JoinForm joinForm, Model model) {
+    public String resetPw(@ModelAttribute PwResetForm pwResetForm, Model model) {
         commonProcess(model, "새 비밀번호 설정");
         return "member/resetPw";
     }
 
 
     @PostMapping("/resetPw")
-    public String resetPwPs(@ModelAttribute JoinForm joinForm, Errors errors, Model model, HttpSession session) {
+    public String resetPwPs(@ModelAttribute @Valid PwResetForm pwResetForm, Errors errors, Model model,
+                            HttpSession session) {
 
         Long memberNo = (Long)session.getAttribute("memberNo");
 
@@ -141,13 +153,16 @@ public class MemberController {
             throw new RuntimeException("잘못된 접근입니다.");
         }
 
-        String memberPw = joinForm.getMemberPw();
+        String memberPw = pwResetForm.getMemberPw();
 
         try{
-            joinValidator.validate(joinForm,errors);
+
+            pwValidator.validate(pwResetForm,errors);
+
             if(errors.hasErrors()){
                 return "member/resetPw";
             }
+
             updateService.updatePw(memberNo,memberPw);
         }catch(Exception e){
             e.printStackTrace();
@@ -170,11 +185,9 @@ public class MemberController {
     }
 
     @PostMapping("/withdrawal")
-    public String withdrawalPs(Model model, HttpSession httpSession, String memberPw, String withdrawalMsg){
-
+    public String withdrawalPs(Model model, String memberPw, String withdrawalMsg, HttpServletResponse response, HttpServletRequest request){
+        HttpSession httpSession = request.getSession();
         commonProcess(model, "회원 탈퇴");
-
-        MessageDto message = null;
 
         if(!withdrawalMsg.isBlank() && withdrawalMsg != null) {
 
@@ -187,6 +200,13 @@ public class MemberController {
             httpSession.removeAttribute("memberInfo");
 
             httpSession.invalidate();
+
+            /* 아이디 저장 쿠키 삭제 S */
+            Cookie cookie = new Cookie("saveId", "");
+            cookie.setMaxAge(0);
+            cookie.setPath(request.getContextPath() + "/member");
+            response.addCookie(cookie);
+            /* 아이디 저장 쿠키 삭제 E */
 
             return "common/sweet_script";
 
