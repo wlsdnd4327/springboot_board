@@ -43,15 +43,25 @@ public class BoardConfigInfoService {
      * @param board
      */
     private void accessCheck(Board board, String location){
+
+        //use - false : 모든 항목 접근 불가(관리자 제외)
+        if(!board.isUse()){ //추후 memberutil이 관리자가 아닐때 추가 예정
+            throw new BoardNotAllowAccessException();
+        }
+
         Role role = Role.ALL;
         if(location.equals("list")){    //목록 접근 권한
             role  = board.getListAccessRole();
+
         } else if (location.equals("view")){    //게시글 접근 권한
             role = board.getViewAccessRole();
+
         } else if (location.equals("write")){   //  글쓰기 권한
             role = board.getWriteAccessRole();
+
         }else if (location.equals("reply")) {  //답글 권한
             role = board.getReplyAccessRole();
+
         } else if (location.equals("comment")) {    //댓글 권한
             role = board.getCommentAccessRole();
         }

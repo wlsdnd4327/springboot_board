@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <th:block th:fragment="form">
+    <th:block th:fragment="form" th:object="${postForm}">
+        <div class="message" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
         <input th:if="${board.useAttachImage && board.useAttachFile}" type="file" id="file" class="dn">
-        <dl>
-            <dt th:text="#{board.poster}"></dt>
-            <dd>
-                <input type="text" name="poster">
-            </dd>
-        </dl>
-        <dl th:if="${board.categories != null}">
-            <dt th:text="#{board.category}"></dt>
-            <dd>
-                <th:block th:each="category, status : ${board.categories}">
-                    <input type="radio" name="category" th:value="${category}" th:id="${'category_' + status.index}">
-                    <label th:for="${'category_' + status.index}" th:text="${category}"></label>
-                </th:block>
-            </dd>
-        </dl>
-        <dl>
-            <dt th:text="#{board.subject}"></dt>
-            <dd>
-                <input type="text" name="subject">
-            </dd>
-        </dl>
-        <dl>
-            <dt th:text="#{board.content}"></dt>
-            <dd>
-               <textarea name="content" id="content"></textarea>
-                <th:block th:if="${board.useAttachImage == true}">
-                    <button type="button" class="attachFiles image" th:text="#{board.attach.image}"></button>
-                    <div class="attachFiles image"></div>
-                </th:block>
-            </dd>
-        </dl>
-        <dl th:if="${board.useAttachFile == true}">
-            <dt th:text="#{board.attach.file}"></dt>
-            <dd>
-                <button type="button" class="attachFiles" th:text="#{board.attach.file}"></button>
-                <div class="atttachFiles files"></div>
-            </dd>
-        </dl>
+        <table class="table-cols">
+            <tr>
+                <th th:text="#{board.poster}"></th>
+                <td>
+                    <input type="text" name="poster" th:field="*{poster}">
+                </td>
+            </tr>
+            <tr th:if="${board.categories != null}">
+                <th th:text="#{board.category}"></th>
+                <td>
+                    <th:block th:each="category, status : ${board.categories}">
+                         <input type="radio" name="category" th:value="${category}" th:id="${'category_' + status.index}" th:field="*{category}">
+                         <label th:for="${'category_' + status.index}" th:text="${category}"></label>
+                    </th:block>
+                </td>
+            </tr>
+            <tr>
+                <th th:text="#{board.subject}"></th>
+                <td>
+                    <input type="text" name="subject" th:field="*{subject}">
+                    <div class="errors" th:each="err : ${#fields.errors('subject')}" th:text="${err}"></div>
+                </td>
+            </tr>
+            <tr>
+                <th th:text="#{board.content}"></th>
+                <td>
+                    <textarea name="content" id="content" th:field="*{content}"></textarea>
+                    <div class="errors" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
+                    <th:block th:if="${board.useEditor && board.useAttachImage == true}">
+                        <button type="button" class="attachFiles image" th:text="#{board.attach.image}"></button>
+                        <div class="attachFiles image"></div>
+                    </th:block>
+                </td>
+            </tr>
+            <tr th:if="${board.useAttachFile == true}">
+                <th th:text="#{board.attach.file}"></th>
+                <td>
+                    <button type="button" class="attachFiles" th:text="#{board.attach.file}"></button>
+                    <div class="attachFiles files"></div>
+                </td>
+            </tr>
+        </table>
     </th:block>
 </html>

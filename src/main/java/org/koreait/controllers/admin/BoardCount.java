@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 /**
  * 페이지당 개시글 수 설정
  */
-@Data
+@Data @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardCount {
     private int page = 1;
 

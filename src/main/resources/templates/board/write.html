@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
-    <main layout:fragment="content">
-        <form name="frmSave" th:action="@{/board/save}" autocomplete="off">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_main}">
+    <main layout:fragment="content" class="content">
+        <th:block th:replace="~{board/_submenu::menus}"></th:block>
+        <th:block th:replace="~{board/_board_title::title}"></th:block>
+        <form name="frmSave" method="post" th:action="@{/board/save}" autocomplete="off" th:object="${postForm}">
+            <input type="hidden" name="bId" th:field="*{bId}">
+            <input type="hidden" name="gid" th:field="*{gid}">
             <th:block th:replace="~{board/_form::form}"></th:block>
             <div class="btns">
-                <button type="button" th:text="#{board.list}"></button>
+                <button type="submit"><a th:href="@{/board/list/{bId}(bId=*{bId})}" th:text="#{board.list}"></a></button>
                 <button type="submit" th:text="#{board.write}"></button>
             </div>
         </form>
