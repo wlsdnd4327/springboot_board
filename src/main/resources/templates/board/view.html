@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_main}">
+    <main layout:fragment="content" class="content">
+        <th:block th:replace="~{board/_submenu::menus}"></th:block>
+        <th:block th:replace="~{board/_board_title::title}"></th:block>
+        <div class="view" th:object="${post}">
+            <div class="subject">
+                [[#{board.subject}]] : [[*{subject}]]
+            </div>
+            <div class="post_info">
+                <div class="left">
+                    [[#{board.poster}]] : [[*{poster}]]
+                </div>
+                <div class="right">
+                    [[#{board.datetime}]] : [[*{#temporals.format(createdAt, 'YYYY.MM.dd HH:mm')}]]
+                    <span>
+                        [[#{board.hit}]] :
+                        <th:block th:if="*{hit < 1000}" th:text="*{hit}"></th:block>
+                        <th:block th:unless="*{hit < 1000}" th:text="*{#numbers.formatInteger(hit, 3)}"></th:block>
+                    </span>
+                </div>
+            </div>
+            <div class="view_content">
+                <th:block th:utext="*{content}"></th:block>
+            </div>
+            <div class="btn">
+                <a th:href="@{/board/{id}/update(id=*{id})}" th:text="#{board.update}" class="update"></a>
+                <a th:href="@{/board/delete/{id}(id=*{id})}" th:text="#{board.delete}"><i class="xi-trash-o"></i></a>
+                <a th:if="${board.useReply == true}" th:href="@{/board/reply/(id=*{id})}" th:text="#{board.reply}"></a>
+                <a th:href="@{/board/list/{bId}(bId=*{board.bId})}" th:text="#{board.list}"></a>
+            </div>
+        </div>
+    </main>
+</html>

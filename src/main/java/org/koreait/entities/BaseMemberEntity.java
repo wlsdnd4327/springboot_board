@@ -15,7 +15,7 @@ public class BaseMemberEntity extends BaseEntity{
     @CreatedBy
     @Column(updatable = false)
     private String createdBy;
-
+ 
     @LastModifiedBy
     @Column(insertable = false)
     private String updatedBy;

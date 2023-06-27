@@ -1,6 +1,7 @@
 package org.koreait.configs;
 
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.MemberUtil;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +15,13 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AwareAuditingImpl implements AuditorAware<String> {
 
+    private final MemberUtil memberUtil;
+
     @Override
     public Optional<String> getCurrentAuditor() {
-        return Optional.empty();
+
+        String memberId = memberUtil.isLogin() ? memberUtil.getMember().getMemberId() : null;
+
+        return Optional.ofNullable(memberId);
     }
 }

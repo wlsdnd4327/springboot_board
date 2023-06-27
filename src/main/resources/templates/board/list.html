@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_main}">
+    <main layout:fragment="content" class="content">
+        <th:block th:replace="~{board/_submenu::menus}"></th:block>
+        <th:block th:replace="~{board/_board_title::title}"></th:block>
+        게시글 목록
+        <button type="submit"><a th:href="@{/board/write/{bId}(bId=*{bId})}" th:text="#{board.write}"></a></button>
+    </main>
+</html>
