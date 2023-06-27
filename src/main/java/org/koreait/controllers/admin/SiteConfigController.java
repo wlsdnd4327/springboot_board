@@ -1,21 +1,20 @@
 package org.koreait.controllers.admin;
 
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.CommonFunc;
-import org.koreait.models.SiteConfigDeleteService;
-import org.koreait.models.SiteConfigInfoService;
-import org.koreait.models.SiteConfigSaveService;
+import org.koreait.dtos.admin.SiteConfigData;
+import org.koreait.services.SiteConfigDeleteService;
+import org.koreait.services.SiteConfigInfoService;
+import org.koreait.services.SiteConfigSaveService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin/config")
 @RequiredArgsConstructor
-public class SiteConfigController implements CommonFunc {
+public class SiteConfigController{
 
     private final SiteConfigSaveService saveService;
     private final SiteConfigInfoService infoService;
@@ -23,7 +22,7 @@ public class SiteConfigController implements CommonFunc {
     private String configId = "siteConfig";
     @GetMapping
     public String config(Model model){
-        commonProcess(model);
+        commonProcess(model, "사이트 설정");
         SiteConfigData data = infoService.get(configId, SiteConfigData.class);
         model.addAttribute("siteConfigData",data == null ? new SiteConfigData() : data);
         model.addAttribute("addCss", new String("config"));
@@ -32,16 +31,15 @@ public class SiteConfigController implements CommonFunc {
 
     @PostMapping
     public String configPs(SiteConfigData siteConfigdata, Model model){
-        commonProcess(model);
+        commonProcess(model,"사이트 설정");
         saveService.save(configId,siteConfigdata);
         model.addAttribute("message","설정이 저장되었습니다");
         model.addAttribute("addCss", new String("config"));
         return "admin/config";
     }
 
-    @Override
-    public void commonProcess(Model model) {
-        String title = "사이트 설정";
+    private void commonProcess(Model model, String title) {
+        model.addAttribute("addCss","style2");
         model.addAttribute("title",title);
     }
 }

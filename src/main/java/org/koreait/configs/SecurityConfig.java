@@ -1,8 +1,8 @@
 package org.koreait.configs;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.koreait.models.member.LoginFailureHandler;
-import org.koreait.models.member.LoginSuccessHandler;
+import org.koreait.services.member.LoginFailureHandler;
+import org.koreait.services.member.LoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

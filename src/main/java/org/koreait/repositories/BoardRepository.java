@@ -1,6 +1,6 @@
 package org.koreait.repositories;
 
-import org.koreait.entities.Board;
+import org.koreait.entities.board.Board;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 

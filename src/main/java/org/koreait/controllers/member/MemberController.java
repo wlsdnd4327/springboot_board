@@ -6,10 +6,16 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.koreait.models.member.FindMemberService;
-import org.koreait.models.member.MemberSaveService;
-import org.koreait.models.member.MemberUpdateService;
-import org.koreait.models.member.MemberWithdrawalService;
+import org.koreait.dtos.member.FindIdForm;
+import org.koreait.dtos.member.JoinForm;
+import org.koreait.dtos.member.LoginForm;
+import org.koreait.dtos.member.PwResetForm;
+import org.koreait.services.member.FindMemberService;
+import org.koreait.services.member.MemberSaveService;
+import org.koreait.services.member.MemberUpdateService;
+import org.koreait.services.member.MemberWithdrawalService;
+import org.koreait.validators.member.JoinValidator;
+import org.koreait.validators.member.PwValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -131,7 +137,7 @@ public class MemberController {
             String script = String.format("Swal.fire('회원을 찾을 수 없습니다!!', '', 'error').then(function(){history.go(-1);})");
             model.addAttribute("script", script);
             model.addAttribute("memberId",memberId);
-            return "common/sweet_script";
+            return "commons/sweet_script";
         }
     }
 
@@ -173,7 +179,7 @@ public class MemberController {
 
         model.addAttribute("script",script);
 
-        return "common/sweet_script";
+        return "commons/sweet_script";
     }
 
 
@@ -208,7 +214,7 @@ public class MemberController {
             response.addCookie(cookie);
             /* 아이디 저장 쿠키 삭제 E */
 
-            return "common/sweet_script";
+            return "commons/sweet_script";
 
         }else {
 
@@ -216,7 +222,7 @@ public class MemberController {
 
             model.addAttribute("script",script);
 
-            return "common/sweet_script";
+            return "commons/sweet_script";
         }
     }
 

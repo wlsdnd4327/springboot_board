@@ -1,6 +1,6 @@
 package org.koreait.commons;
 
-import org.koreait.controllers.member.SendMailDto;
+import org.koreait.dtos.member.SendMailDto;
 
 public interface MemberPwFind {
     /**

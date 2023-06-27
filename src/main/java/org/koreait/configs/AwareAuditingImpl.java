@@ -1,7 +1,7 @@
 package org.koreait.configs;
 
 import lombok.RequiredArgsConstructor;
-import org.koreait.commons.MemberUtil;
+import org.koreait.commons.utils.MemberUtil;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
