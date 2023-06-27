@@ -24,11 +24,11 @@ public class MvcConfig implements WebMvcConfigurer {
     @Value("${file.upload.path}")
     private String fileUploadPath;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/")
-                .setViewName("front/index.html");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/")
+//                .setViewName("front/index.html");
+//    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -51,6 +51,7 @@ public class MvcConfig implements WebMvcConfigurer {
         return ms;
     }
 
+    // POST, GET 이외의 메서드 방식도 사용할 수 있도록 설정
     @Bean
     public HiddenHttpMethodFilter httpMethodFilter(){
         return new HiddenHttpMethodFilter();
