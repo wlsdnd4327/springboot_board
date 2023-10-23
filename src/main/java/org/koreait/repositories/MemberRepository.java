@@ -1,12 +1,11 @@
 package org.koreait.repositories;
 
 import org.koreait.entities.member.MemberEntity;
-import org.koreait.entities.QMemberEntity;
+import org.koreait.entities.member.QMemberEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
-public interface MemberRepository extends JpaRepository<MemberEntity,Long>,
-        QuerydslPredicateExecutor<MemberEntity> {
+public interface MemberRepository extends JpaRepository<MemberEntity,Long>, QuerydslPredicateExecutor<MemberEntity> {
 
     MemberEntity findByMemberId(String memberId); // 아이디로 멤버 조회
 

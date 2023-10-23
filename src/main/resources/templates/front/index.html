@@ -1,8 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/main2}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
     <section layout:fragment="content">
-    <h1>메인 페이지</h1>
+        <p class="preview">게시판 미리보기</p>
+        <div class="main_content">
+            <div class="title">
+                <h3>
+                    <a th:href="@{/board/list/freetalk}">자유게시판</a>
+                </h3>
+                <a th:href="@{/board/list/freetalk}"><i class="xi-plus-square-o xi-2x"></i></a>
+            </div>
+            <ul class="bottom" th:each="item, status : ${items}" th:object="${item}" th:classappend="*{isNotice ? 'notice':''}">
+                <li>
+                    <a th:href="@{/board/view/{id}(id=*{id})}" th:text="*{subject}"></a>
+                </li>
+            </ul>
+        </div>
     </section>
 </html>

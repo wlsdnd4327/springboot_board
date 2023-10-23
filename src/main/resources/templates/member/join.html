@@ -1,65 +1,58 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{layouts/main2}">
-    <h1 th:text="#{member.join}"></h1>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
     <section layout:fragment="content">
-        <h1 th:text="#{member.join}"></h1>
         <div class="errors" th:each="err : ${#fields.globalErrors()}" th:text="${err}"></div>
         <form name="form_join" method="post" th:action="@{/member/join}" autocomplete="off" th:object="${joinForm}">
-            <dl>
-                <dt th:text="#{memberId}"></dt>
-                <dd>
-                    <input type="text" name="memberId" th:field="*{memberId}">
-                    <div class="errors" th:each="err : ${#fields.errors('memberId')}" th:text="${err}"></div>
-                </dd>
-            </dl>
-            <dl>
-                <dt th:text="#{memberPw}"></dt>
-                <dd>
-                    <input type="password" name="memberPw" th:field="*{memberPw}">
-                    <div class="errors" th:each="err : ${#fields.errors('memberPw')}" th:text="${err}"></div>
-                </dd>
-            </dl>
-            <dl>
-                <dt th:text="#{memberPwRe}"></dt>
-                <dd>
-                    <input type="password" name="memberPwRe" th:field="*{memberPwRe}">
-                    <div class="errors" th:each="err : ${#fields.errors('memberPwRe')}" th:text="${err}"></div>
-                </dd>
-            </dl>
-            <dl>
-                <dt th:text="#{memberNm}"></dt>
-                <dd>
-                    <input type="text" name="memberNm" th:field="*{memberNm}">
-                    <div class="errors" th:each="err : ${#fields.errors('memberNm')}" th:text="${err}"></div>
-                </dd>
-            </dl>
-            <dl>
-                <dt th:text="#{email}"></dt>
-                <dd>
-                    <input type="text" name="email" th:field="*{email}">
-                    <div class="errors" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
-                </dd>
-            </dl>
-            <dl>
-                <dt th:text="#{mobile}"></dt>
-                <dd>
-                    <input type="text" name="mobile" th:field="*{mobile}">
-                    <div class="errors" th:each="err : ${#fields.errors('mobile')}" th:text="${err}"></div>
-                </dd>
-            </dl>
-            <dl>
-                <dd>
-                    <textarea class="terms" th:text="${@siteConf.get('joinTerms')}"></textarea>
-                    <input type="checkbox" value="true" name="agrees" id="agrees" th:field="*{agrees}" >
-                    <label for="agrees" th:text="#{member.terms.agree}"></label>
-                    <div class="errors" th:each="err : ${#fields.errors('agrees')}" th:text="${err}"></div>
-                </dd>
-            </dl>
-            <div class="btns">
-                <button type="reset" th:text="#{member.action.reset}"></button>
-                <button type="submit" th:text="#{member.action.join}"></button>
+            <div class="form">
+                <h1 th:text="#{member.join}"></h1>
+                <dl>
+                    <dd>
+                        <input type="text" name="memberId" th:field="*{memberId}" th:placeholder="#{memberId}">
+                        <div class="errors" th:each="err : ${#fields.errors('memberId')}" th:text="${err}"></div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                        <input type="password" name="memberPw" th:field="*{memberPw}" th:placeholder="#{memberPw}">
+                        <div class="errors" th:each="err : ${#fields.errors('memberPw')}" th:text="${err}"></div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                        <input type="password" name="memberPwRe" th:field="*{memberPwRe}" th:placeholder="#{memberPwRe}">
+                        <div class="errors" th:each="err : ${#fields.errors('memberPwRe')}" th:text="${err}"></div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                        <input type="text" name="memberNm" th:field="*{memberNm}" th:placeholder="#{memberNm}">
+                        <div class="errors" th:each="err : ${#fields.errors('memberNm')}" th:text="${err}"></div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                        <input type="text" name="email" th:field="*{email}" th:placeholder="#{email}">
+                        <div class="errors" th:each="err : ${#fields.errors('email')}" th:text="${err}"></div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                        <input type="text" name="mobile" th:field="*{mobile}" th:placeholder="#{mobile}">
+                        <div class="errors" th:each="err : ${#fields.errors('mobile')}" th:text="${err}"></div>
+                    </dd>
+                </dl>
+                <dl>
+                    <dd>
+                        <textarea class="terms" th:text="${@siteConf.get('joinTerms')}"></textarea>
+                        <input type="checkbox" value="true" name="agrees" id="agrees" th:field="*{agrees}">
+                        <label for="agrees" th:text="#{member.terms.agree}"></label>
+                        <div class="errors" th:each="err : ${#fields.errors('agrees')}" th:text="${err}"></div>
+                    </dd>
+                </dl>
+                <div class="join_btn">
+                    <button type="reset" th:text="#{member.action.reset}"></button>
+                    <button type="submit" th:text="#{member.action.join}"></button>
+                </div>
             </div>
         </form>
     </section>

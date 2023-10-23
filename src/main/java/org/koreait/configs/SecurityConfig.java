@@ -25,32 +25,28 @@ public class SecurityConfig{
                         .failureHandler(new LoginFailureHandler())
                 ).logout(f->f
                         .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
-                        .logoutSuccessUrl("/member/login")
+                        .logoutSuccessUrl("/")
                 );
 
         http.authorizeHttpRequests(f->f
                 .requestMatchers("/mypage/**").authenticated() // 회원 전용
-//                .requestMatchers("/instructor/**").hasAuthority("INSTRUCTOR")// 강사 전용 - 강의등록 페이지
-//                .requestMatchers("/admin/**", "/instructor/**").hasAuthority("ADMIN") // 관리자 전용 -> 개발 중 disabled
+                .requestMatchers("/admin/**").hasAuthority("ADMIN") // 관리자 전용
                 .anyRequest().permitAll() // 그 외의 모든 페이지 접근 가능.
         );
 
         http.exceptionHandling(f->f
                 .authenticationEntryPoint((req,resp,e)->{
                     String uri = req.getRequestURI();
-                    if(uri.indexOf("/admin") != -1){
+                    if(uri.indexOf("/admin") != -1){    //관리자 페이지
                         resp.sendError(HttpServletResponse.SC_UNAUTHORIZED,"NOT AUTHORIZED");
-                    }else{
+                    }else{  //회원페이지
                         String redirectUrl = req.getContextPath() + "/member/login";
                         resp.sendRedirect(redirectUrl);
                     }
                 })
         );
 
-        http.headers(f-> f
-                .frameOptions(d->d
-                        .sameOrigin())
-        );
+        http.headers(f-> f.frameOptions(d->d.sameOrigin()));
 
         return http.build();
     }
@@ -64,6 +60,4 @@ public class SecurityConfig{
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
-
 }

@@ -12,7 +12,7 @@
 	<artifactId>day00</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>day00</name>
-	<description>스프링 부트 프로젝트(강의 신청)</description>
+	<description>스프링 부트 게시판 프로젝트</description>
 	<properties>
 		<java.version>20</java.version>
 	</properties>
@@ -23,6 +23,7 @@
 			<artifactId>spring-boot-starter-mail</artifactId>
 			<version>3.1.0</version>
 		</dependency>
+
 		<!-- JSON 관련 의존처리-->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -32,6 +33,7 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
+
 
 		<!--타임리프 의존-->
 		<dependency>
@@ -65,7 +67,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- validation 의존-->
@@ -127,6 +129,7 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
@@ -142,6 +145,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
 			<plugin>
 				<groupId>com.mysema.maven</groupId>
 				<artifactId>apt-maven-plugin</artifactId>

@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.koreait.entities.file.FileEntity;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 @Data
 @Builder
@@ -29,4 +32,14 @@ public class PostForm {
 
     @NotBlank
     private String content; // 내용
+
+    private int hit;    //조회수
+
+    private LocalDateTime createdAt;    //작성일시
+
+    private boolean isNotice;   //공지글 여부 (1이면 공지글 0이면 일반글)
+
+    private List<FileEntity> attachEditors;
+    private List<FileEntity> attachFiles;
+
 }

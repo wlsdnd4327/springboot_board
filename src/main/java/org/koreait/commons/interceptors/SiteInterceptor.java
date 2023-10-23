@@ -10,6 +10,9 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Map;
 
+/**
+ * 사이트 공통 설정
+ */
 @Component("siteConf")
 @RequiredArgsConstructor
 public class SiteInterceptor implements HandlerInterceptor {

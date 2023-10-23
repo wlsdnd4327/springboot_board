@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <header th:fragment="common">
+        <section class="front-menu">
+            <div class="logo">
+                <h1>
+                    <a th:href="@{/}">게시판 프로젝트</a>
+                </h1>
+            </div>
+            <div class="header_right">
+                <a th:href="@{/}">
+                    <i class="xi-home-o" th:text="#{mainPage}"></i>
+                </a>
+                <th:block sec:authorize="isAnonymous()">
+                    <a th:href="@{/member/login}">
+                        <i class="xi-log-in" th:text="#{login}"></i>
+                    </a>
+                    <a th:href="@{/member/join}">
+                        <i class="xi-users-plus" th:text="#{member.join}"></i>
+                    </a>
+                </th:block>
+                <th:block sec:authorize="isAuthenticated()">
+                    <span th:text="${#messages.msg('member.login.msg', session.memberInfo.memberNm, session.memberInfo.memberId)}"></span>
+                    <a th:href="@{/member/logout}" >
+                        <i class="xi-log-out" th:text="#{member.logout}"></i>
+                    </a>
+                    <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/admin}" th:text="#{adminPage}" class="admin"></a>
+                    <a th:href="@{/member/withdrawal}" th:text="#{withdrawal}" class="withdrawal"></a>
+                </th:block>
+            </div>
+        </section>
+    </header>
+</html>

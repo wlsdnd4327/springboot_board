@@ -8,6 +8,7 @@ import org.koreait.dtos.member.MemberInfo;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+
 @Component
 @RequiredArgsConstructor
 public class MemberUtil {
@@ -21,10 +22,9 @@ public class MemberUtil {
         return getMember() != null;
     }
 
-    public boolean isInstructor(){
-        return isLogin() && getMember().getRole() == Role.INSTRUCTOR;
-    }
-
+    /**
+     * 관리자 여부
+     */
     public boolean isAdmin(){
         return isLogin() && getMember().getRole() == Role.ADMIN;
     }
@@ -34,8 +34,14 @@ public class MemberUtil {
         return memberInfo;
     }
 
-    public MemberEntity getEntity(){
+    public boolean isMine(long memberNo) {
+        if (isLogin() || isAdmin()) {
+            return memberNo == getMember().getMemberNo();
+        }
+        return false;
+    }
 
+    public MemberEntity getEntity(){
         if(isLogin()){
             MemberEntity member = new ModelMapper().map(getMember(), MemberEntity.class);
             return member;

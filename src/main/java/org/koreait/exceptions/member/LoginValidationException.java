@@ -3,6 +3,9 @@ package org.koreait.exceptions.member;
 import org.koreait.commons.CommonException;
 import org.springframework.http.HttpStatus;
 
+/**
+ * 로그인 유효성 검사시 예외
+ */
 public class LoginValidationException extends CommonException {
 
     private String field;

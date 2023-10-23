@@ -13,6 +13,7 @@ public interface PasswordFormValidator {
      * 3. 특수문자 하나 이상 포함 !@#$%^&*()_+
      */
 
+    //1. 영대소문자 하나 이상 포함 - isCaseCheck(true : 대소문자 각각 1자이상 , false : 대소문자 구분 X)
     default boolean alphabetCheck(String memberPw, boolean isCaseCheck){
         Pattern lower = Pattern.compile(Regex.LOWER_CASE.getValue());
         Pattern upper = Pattern.compile(Regex.UPPER_CASE.getValue());
@@ -29,18 +30,21 @@ public interface PasswordFormValidator {
         return result;
     }
 
+    //2. 숫자 포함
     default boolean numberCheck(String memberPw){
         Pattern pattern = Pattern.compile(Regex.NUM.getValue());
         Matcher matcher = pattern.matcher(memberPw);
         return matcher.find();
     }
 
+    //3. 특수문자 하나 이상 포함 !@#$%^&*()_+
     default boolean specialCheck(String memberPw){
         Pattern pattern = Pattern.compile(Regex.SPECIAL.getValue());
         Matcher matcher = pattern.matcher(memberPw);
         return matcher.find();
     }
 
+    //비밀번호와 비밀번호 확인이 일치하는가 체크
     default boolean pwNpwRecheck(String memberPw, String memberPwRe){
         return memberPw.equals(memberPwRe);
     }

@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@100;200;300;400;500;600;700&display=swap');
+*{box-sizing: border-box;  outline: none;}
+html {font-size:16px; color: #000; font-family: 'IBM Plex Sans KR', sans-serif;}
+body {margin:0; padding: 0;}
+h1, h2, h3{margin:0; padding:0;}
+ul, ol{list-style:none; margin:0; padding:0;}
+dl, dt, dd {margin: 0; padding: 0;}
+a {text-decoration: none; color:inherit;}
+img { border: 0;}
+
+/**헤더 영역 스타일*/
+header{height:100px; border-bottom:1px solid #596b99;}
+header > section {width: 1180px;}
+.front-menu { display: flex; justify-content: space-between; margin:0 auto; flex-direction: row; align-items: center;}
+.header_right > a:nth-child(2){margin:0 10px;}
+.logo{height:100px; line-height:100px; color:#596b99;}
+.header_right > span{margin:0 10px;}
+.withdrawal{margin-left:10px; font-size:17px;}
+.admin{margin-left:10px; font-size:17px;}
+
+/** 프론트 레이아웃 기본스타일 */
+main {width: 1180px; min-height: 700px; display: flex; margin:0 auto;}
+main > section { width: 1180px; flex-grow: 1;}
+.layout_width {max-width: 1300px; min-width: 1100px; margin:0 auto; padding: 0 10px;}
+
+/** 메인페이지 게시판 미리보기 스타일*/
+.preview{margin:0 auto; margin-top:70px; margin-bottom:15px; width:700px; font-size:22px; text-align:center; font-weight:600;}
+.main_content{height:355px; width:500px; margin:0 auto; border:1px solid #d5d5d5; border-radius:5px; overflow:hidden;}
+.title{height:50px; background-color:#f2f2f2; line-height:50px;}
+.title > h3{float:left; font-size:20px; font-weight:500; padding-left:7px;}
+.xi-plus-square-o{opacity:0.9; float:right; padding-right:7px; margin-top:9px;}
+.xi-plus-square-o:hover{opacity:0.7;}
+.bottom > li{height:50px; line-height:50px; border-top:1px solid #d5d5d5;}
+.bottom > li > a{padding-left:7px;}
+.bottom > li > a:hover{font-weight:bold;}
+.bottom{clear:both;}
+.notice{color:#f53c1e; font-weight:500;}
+
+/**로그인, 회원가입관련 양식 스타일*/
+.form{width:452px; margin:0 auto; margin-top:40px;}
+.form > h1{margin-bottom:30px; text-align:center; font-size:30px;}
+.form > p{font-weight:600;}
+input[type='text'], input[type='password']{width:450px; height:50px; border-radius:0px; border:1px solid #d5d5d5; margin-top:10px; padding:10px;}
+textarea{width:450px; height:70px; border-radius:0px; border:1px solid #d5d5d5; margin-top:10px;}
+.find{width:452px; display:flex; justify-content:space-between;}
+.find > a{width:150px; text-align:center;}
+.find > a:nth-child(2){border-right:0.5px solid #000; border-left:0.5px solid #000;}
+.find > a:hover{text-decoration:underline;}
+.save{margin-top:10px;}
+.find_id{font-weight:600;}
+
+/**로그인, 회원가입관련 버튼 스타일*/
+.btn > button{width:451px; background-color:#596b99; color:#fff; font-weight:600; height:50px; line-height:50px; text-align:center; font-size:18px;
+    border:none; margin-bottom:15px; margin-top:30px;}
+.btn > button:hover{background-color:#3c4e7a;}
+.join_btn{display:flex; justify-content:space-between; width:451px; margin-top:30px; height:50px; line-height:50px;}
+.join_btn > button{font-size:18px;  border:none; color:#fff; text-align:center; font-weight:600;}
+.join_btn > button:nth-child(1){width:220px; background-color:#999696}
+.join_btn > button:nth-child(2){width:220px; background-color:#596b99;}
+.join_btn > button:nth-child(2):hover{background-color:#3c4e7a;}
+
+/**에러 메세지 스타일*/
+.errors{color:red; font-size:15px; font-weight:600;}
+
+/**푸터 스타일*/
+footer{height:100px; width:100%; background:#f2f2f2; margin-top:68px;}
+footer p{text-align:center; line-height:100px; margin:0; font-weight:400;}
+
+.dn {display:none !important;}

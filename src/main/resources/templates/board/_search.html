@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="search">
+        <form name="frmSearch" method="get" th:action="@{/board/list/{bId}(bId=${board.bId})}" autocomplete="off" th:object="${postSearch}">
+            <div class="input_grp">
+                <select name="sopt" th:field="*{sopt}" class="sort">
+                    <option value="all">전체</option>
+                    <option value="poster">작성자</option>
+                    <option value="subject">제목</option>
+                </select>
+                <div class="search">
+                    <input type="text" name="skey" th:field="*{skey}" placeholder="검색어를 입력하세요.">
+                </div>
+                <div class="search_btn">
+                    <button type="submit"><i class="xi-search"></i></button>
+                </div>
+            </div>
+        </form>
+    </th:block>
+</html>

@@ -1,9 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/_main}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/board/_main_list}">
     <main layout:fragment="content" class="content">
-        <th:block th:replace="~{board/_submenu::menus}"></th:block>
         <th:block th:replace="~{board/_board_title::title}"></th:block>
-        게시글 목록
-        <button type="submit"><a th:href="@{/board/write/{bId}(bId=*{bId})}" th:text="#{board.write}"></a></button>
+        <th:block th:replace="~{board/_search::search}"></th:block>
+        <section id="list">
+            <ul class="top">
+                <li>번호</li>
+                <li>제목</li>
+                <li>등록일자</li>
+                <li>작성자</li>
+                <li>조회수</li>
+            </ul>
+            <ul class="bottom" th:each="item, status : ${items}" th:object="${item}" th:classappend="*{isNotice ? 'notice':''}">
+                <li th:text="*{id}"></li>
+                <li>
+                    <a th:href="@{/board/view/{id}(id=*{id})}">
+                        <th:block th:text="*{subject}"></th:block>
+                        <th:block th:if="*{commentCnt > 0}" th:text="*{'(' +  commentCnt + ')'}"></th:block>
+                    </a>
+                </li>
+                <li th:text="*{#temporals.format(createdAt,'yyyy-MM-dd HH:mm')}"></li>
+                <li th:text="*{poster}"></li>
+                <li th:text="*{hit}"></li>
+            </ul>
+        </section>
+        <button type="submit" class="write_btn"><a th:href="@{/board/write/{bId}(bId=*{bId})}" th:text="#{board.write}"></a></button>
+
+        <!-- 페이징처리 시작 -->
+        <div th:if="${!paging.isEmpty()}" class="paging">
+            <ul class="pagination justify-content-center">
+                <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                    <a class="page-link"
+                       th:href="@{|?page=${paging.number-1}|}">
+                        <span>이전</span>
+                    </a>
+                </li>
+                <li th:each="page: ${#numbers.sequence(0 , paging.totalPages-1)}"
+                    th:if="${page >= paging.number-5 and page <= paging.number+5}"
+                    th:classappend="${page == paging.number} ? 'active'"
+                    class="page-item">
+                    <a th:text="${page} + 1" class="page-link" th:href="@{|?page=${page}|}"></a>
+                </li>
+                <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                    <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                        <span>다음</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 페이징처리 끝 -->
     </main>
 </html>

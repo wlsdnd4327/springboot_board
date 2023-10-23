@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <form th:fragment="comment_form" name="frmComment" method="post" th:action="@{/board/comment}" target="iframeProcess" autocomplete="off">
+        <input type="hidden" name="postId" th:value="${post.id}">
+        <div class="comment">
+            <th:block th:if="${@memberUtil.isLogin()}">
+                <input type="hidden" name="poster" th:value="${session.memberInfo.memberNm}">
+            </th:block>
+
+            <textarea name="content" id="comment" placeholder="로그인 후 글쓰기가 가능합니다."></textarea>
+            <button type="submit"class="write_btn2" sec:authorize="isAuthenticated()">등록</button>
+        </div>
+    </form>
+
+    <ul th:fragment="comments">
+        <li th:if="${post.comments != null}" th:each="comment : ${post.comments}" th:object="${comment}" class="comment-list">
+            <div>작성자 : [[*{poster}]]([[*{member.memberId}]])</div>
+            <div>[[#{board.datetime}]] : [[*{#temporals.format(createdAt, 'YYYY.MM.dd HH:mm')}]]</div>
+            <pre th:text="*{content}" th:id="*{'comment_content_' + id}"></pre>
+            <div th:id="*{'edit_box_' + id}"></div>
+            <div class="button" th:if="*{@memberUtil.isMine(member.memberNo) || @memberUtil.isAdmin()}">
+                <button type="button" th:data-id="*{id}" class="edit_comment">수정</button>
+                <button type="submit"><a th:href="@{/board/comment/delete/{id}(id=*{id})}" target="iframeProcess" onclick="return confirm('정말 삭제 하시겠습니까?');">삭제</a></button>
+            </div>
+        </li>
+    </ul>
+</html>

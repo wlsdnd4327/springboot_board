@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 /**
  * 공통 예외 처리
  */
-@ControllerAdvice("org.koreait.controllers")
+@ControllerAdvice("org.koreait.controllers")    //적용범위
 public class CommonController {
 
     @ExceptionHandler(Exception.class)
     public String errorHandler(Exception e, Model model, HttpServletRequest request, HttpServletResponse response){
 
-        int status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
+        int status = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;  //기본값
 
         if(e instanceof CommonException){
             CommonException commonException = (CommonException) e;

@@ -1,7 +1,5 @@
 package org.koreait.commons;
 
-import org.koreait.dtos.member.SendMailDto;
-
 public interface MemberPwFind {
     /**
      * 회원 비밀번호 찾기 설계
@@ -12,6 +10,4 @@ public interface MemberPwFind {
      *  - 메일 보내기.
      * 입력받은 값으로 회원 비밀번호 변경.
      */
-    public SendMailDto writeMail(String id);
-    public void sendMail(SendMailDto mailDto);
 }

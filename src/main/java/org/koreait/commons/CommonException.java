@@ -5,13 +5,16 @@ import org.springframework.http.HttpStatus;
 import java.util.ResourceBundle;
 
 /**
- * 예외 통제
+ * 공통 예외
  */
 
 public class CommonException extends RuntimeException{
+
     protected static ResourceBundle bundleValidations;
+
     protected static ResourceBundle bundleErrors;
-    protected HttpStatus httpStatus;
+
+    protected HttpStatus httpStatus;    //상태코드
 
     static{
         bundleValidations = ResourceBundle.getBundle("messages.validations");
@@ -28,7 +31,7 @@ public class CommonException extends RuntimeException{
         this.httpStatus = httpStatus;
     }
 
-    public HttpStatus getStatus(){
+    public HttpStatus getStatus(){  //상태 값 조회
         return httpStatus;
     }
 }

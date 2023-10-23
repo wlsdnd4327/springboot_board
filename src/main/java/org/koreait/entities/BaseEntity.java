@@ -1,7 +1,6 @@
 package org.koreait.entities;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -25,4 +24,5 @@ public class BaseEntity {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime updatedAt;
+
 }

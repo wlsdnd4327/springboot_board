@@ -1,19 +1,33 @@
-/** 공통 이벤트 처리 */
-window.addEventListener("DOMContentLoaded", function() {
+/**
+* ajaxLoad
+*/
+function ajaxLoad(url, method, formData, responseType) {
+    method = method || "GET";
+    const csrfHeader = document.querySelector("meta[name='_csrf_header']").content;
+    const csrfToken = document.querySelector("meta[name='_csrf']").content;
 
-    /** 전체 선택 토글 처리 S */
-    const chkAlls = document.getElementsByClassName("checkall");
-    for (const el of chkAlls) {
-        el.addEventListener("click", function() {
-            const target = this.dataset.targetName;
-            if (!target) return;
-
-            const targets = document.getElementsByName(target);
-            for (const ta of targets) {
-                ta.checked = this.checked;
+    return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open(method, url);
+        xhr.setRequestHeader(csrfHeader, csrfToken);
+        xhr.send(formData);
+        xhr.responseType=responseType;
+        xhr.onreadystatechange = function() {
+            if (xhr.status == 200 && xhr.readyState == XMLHttpRequest.DONE) {
+                resolve(xhr.response);
             }
-        });
-    }
-    /** 전체 선택 토글 처리 E */
+        };
 
-});
+        xhr.onerror = function(err) {
+            reject(err);
+        };
+
+        xhr.onabort = function(err) {
+            reject(err);
+        };
+
+       xhr.ontimeout = function(err) {
+            reject(err);
+        };
+    });
+}

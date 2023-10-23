@@ -47,6 +47,7 @@ public class JoinValidator implements Validator, MobileFormValidator, PasswordFo
             errors.rejectValue("memberId", "Validation.duplicate.memberId");
         }
 
+
         if(memberPw!=null && !memberPw.isBlank()){
             //2. 비밀번호 - 비밀번호 확인 동일 여부 체크
             if (memberPwRe != null && !memberPwRe.isBlank() ) {

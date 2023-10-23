@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="tpl">
+        <script type="text/html" id="tpl_editor">
+            <span class="file_box" id="file_#[id]">
+                <a href="/file/download/#[id]">#[fileName]</a>
+                <span class="insert_editor" data-url="#[fileUrl]">[↑]</span>
+                <a href="/file/delete/#[id]" target="iframeProcess" onclick="return confirm('정말 삭제하시겠습니까?');">[X]</a>
+            </span>
+        </script>
+        <script type="text/html" id="tpl">
+            <span class="file_box" id="file_#[id]">
+                <a href="/file/download/#[id]">#[fileName]</a>
+                <a href="/file/delete/#[id]" target="iframeProcess" onclick="return confirm('정말 삭제하시겠습니까?');">[X]</a>
+            </span>
+        </script>
+    </th:block>
+</html>

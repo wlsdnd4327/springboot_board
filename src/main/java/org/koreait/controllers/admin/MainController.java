@@ -16,7 +16,6 @@ public class MainController {
     }
 
     private void commonProcess(Model model, String title) {
-        model.addAttribute("addCss","style2");
         model.addAttribute("title",title);
     }
 }

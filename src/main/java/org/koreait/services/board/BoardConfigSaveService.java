@@ -48,12 +48,10 @@ public class BoardConfigSaveService {
         board.setListAccessRole(Role.valueOf(boardForm.getListAccessRole()));
         board.setViewAccessRole(Role.valueOf(boardForm.getViewAccessRole()));
         board.setWriteAccessRole(Role.valueOf(boardForm.getWriteAccessRole()));
-        board.setReplyAccessRole(Role.valueOf(boardForm.getReplyAccessRole()));
         board.setCommentAccessRole(Role.valueOf(boardForm.getCommentAccessRole()));
         board.setUseEditor(boardForm.isUseEditor());
         board.setUseAttachFile(boardForm.isUseAttachFile());
         board.setUseAttachImage(boardForm.isUseAttachImage());
-        board.setUseReply(boardForm.isUseReply());
         board.setUseComment(boardForm.isUseComment());
 
         boardRepository.saveAndFlush(board);

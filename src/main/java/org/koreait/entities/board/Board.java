@@ -44,10 +44,6 @@ public class Board extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10, nullable = false)
-    private Role replyAccessRole = Role.ALL; //답글 접근 권한
-
-    @Enumerated(EnumType.STRING)
-    @Column(length = 10, nullable = false)
     private Role commentAccessRole = Role.ALL; //댓글 접근 권한
 
     private boolean useEditor;  //에디터
@@ -55,8 +51,6 @@ public class Board extends BaseEntity {
     private boolean useAttachFile;  //파일 첨부
 
     private boolean useAttachImage; //이미지 첨부
-
-    private boolean useReply;   //답글
 
     private boolean useComment; //댓글
 

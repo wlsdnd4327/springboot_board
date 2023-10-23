@@ -1,50 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://utraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/main2}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://utraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
     <section layout:fragment="content">
-        <h1 th:text="#{login}"></h1>
-
-        <div class="errors global" th:if="${session.global != null}" th:text="${session.global}"></div>
-
-        <form method="post" th:action="@{/member/login}" autocomplete="off" th:object="${loginForm}">
-            <div class="flex_form">
+        <form name="frmLogin" method="post" th:action="@{/member/login}" autocomplete="off" th:object="${loginForm}">
+            <input type="hidden" th:if="*{redirectUrl != null}" name="redirectUrl" th:value="*{redirectUrl}">
+            <div class="form">
+                <h1 th:text="#{login}"></h1>
                 <table class="table-raw">
                     <tr>
-                        <th th:text="#{memberId}"></th>
                         <td>
-                            <input type="text" name="memberId" th:field="*{memberId}">
+                            <input type="text" name="memberId" th:field="*{memberId}" th:placeholder="#{memberId}" th:value="${session.memberId}">
                             <div class="errors" th:if="${session.requiredMemberId != null}" th:text="${session.requiredMemberId}"></div>
                         </td>
                     </tr>
                     <tr>
-                        <th th:text="#{memberPw}"></th>
                         <td>
-                            <input type="password" name="memberPw" th:field="*{memberPw}">
+                            <input type="password" name="memberPw" th:field="*{memberPw}" th:placeholder="#{memberPw}" th:value="${session.memberPw}">
                             <div class="errors" th:if="${session.requiredMemberPw != null}" th:text="${session.requiredMemberPw}"></div>
                         </td>
                     </tr>
                 </table>
-                <div class="btns">
+                <div class="save">
+                    <input type="checkbox" name="saveId" value="true" id="saveId" th:field="*{saveId}">
+                    <label for="saveId" th:text="#{member.saveId}"></label>
+                </div>
+                <div class="errors global" th:if="${session.global != null}" th:text="${session.global}"></div>
+                <div class="btn">
                     <button type="submit" th:text="#{member.action.login}"></button>
                 </div>
+                <div class="find">
+                    <a th:href="@{/member/findId}" th:text="#{member.findId}"></a>
+                    <a th:href="@{/member/findPw}" th:text="#{member.findPw}"></a>
+                    <a th:href="@{/member/join}" th:text="#{member.join}"></a>
+                </div>
             </div>
-            <div>
-                <input type="checkbox" name="saveId" value="true" id="saveId" th:field="*{saveId}">
-                <label for="saveId" th:text="#{member.saveId}"></label>
-            </div>
-            <span>
-
-                <a th:href="@{/member/findId}">
-                    <i class="xi-user" th:text="#{member.findId}"></i>
-                </a>
-                <a th:href="@{/member/findPw}" >
-                    <i class="xi-key" th:text="#{member.findPw}"></i>
-                </a>
-                <a th:href="@{/member/join}">
-                    <i class="xi-users-plus" th:text="#{member.join}"></i>
-                </a>
-            </span>
         </form>
     </section>
 </html>

@@ -2,6 +2,7 @@ package org.koreait.services.post;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.koreait.commons.utils.MemberUtil;
 import org.koreait.entities.post.Post;
 import org.koreait.entities.post.PostView;
 import org.koreait.repositories.PostRepository;
@@ -20,6 +21,7 @@ public class UpdateHitService {
     private final PostViewRepository postViewRepository;
     private final PostRepository postRepository;
     private final HttpServletRequest request;
+    private final MemberUtil memberUtil;
 
     public void update(Long id){
         try{
@@ -27,13 +29,13 @@ public class UpdateHitService {
             postView.setId(id);
             postView.setUid("" + getUid());
             postViewRepository.saveAndFlush(postView);
-        }catch (Exception e){
-            long cnt = postViewRepository.getHit(id);
-            Post post = postRepository.findById(id).orElse(null);
-            if(post != null){
-                post.setHit((int)cnt);
-                postRepository.flush();
-            }
+        }catch (Exception e){}
+
+        long cnt = postViewRepository.getHit(id);
+        Post post = postRepository.findById(id).orElse(null);
+        if(post != null){
+            post.setHit((int)cnt);
+            postRepository.flush();
         }
     }
 
@@ -41,6 +43,6 @@ public class UpdateHitService {
         String ip = request.getRemoteAddr();
         String ua = request.getHeader("User-Agent");
 
-        return Objects.hash(ip, ua);
+        return memberUtil.isLogin() ? memberUtil.getMember().getMemberNo().intValue() : Objects.hash(ip, ua);
     }
 }

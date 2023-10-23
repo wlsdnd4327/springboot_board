@@ -12,11 +12,17 @@ import java.util.Collection;
 public class MemberInfo implements UserDetails {
 
     private Long memberNo;
+
     private String memberId;
+
     private String memberPw;
+
     private String memberNm;
+
     private String email;
+
     private String mobile;
+
     private Role role;
 
     private Collection<? extends GrantedAuthority> authorities;

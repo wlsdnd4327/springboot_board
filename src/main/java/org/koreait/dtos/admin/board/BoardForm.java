@@ -34,8 +34,6 @@ public class BoardForm {
 
     private String writeAccessRole = "ALL"; //글쓰기 접근 권한
 
-    private String replyAccessRole = "ALL"; //답글 접근 권한
-
     private String commentAccessRole = "ALL"; //댓글 접근 권한
 
     private boolean useEditor;  //에디터
@@ -44,7 +42,5 @@ public class BoardForm {
 
     private boolean useAttachImage; //이미지 첨부
 
-    private boolean useReply;   //댓글
-
-    private boolean useComment; //답글
+    private boolean useComment;   //댓글
 }

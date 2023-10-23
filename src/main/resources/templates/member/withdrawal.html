@@ -1,29 +1,28 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://utraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/main2}">
-<section layout:fragment="content">
-    <h1 th:text="#{withdrawal}"></h1>
-    <form method="post" th:action="@{/member/withdrawal}" autocomplete="off">
-        <dl>
-            <dt th:text="#{memberId}"></dt>
-            <dd>
-                <input type="hidden" name="memberId" th:text="${session.memberInfo.memberId}">
-            </dd>
-        </dl>
-        <dl>
-            <dt th:text="#{memberPw}"></dt>
-            <dd>
-                <input type="password" name="memberPw">
-            </dd>
-        </dl>
-        <dl>
-            <dt th:text="#{member.withdrawal.check}"></dt>
-            <dd>
-                <input type="text" placeholder="정말 삭제하시겠습니까?" name="withdrawalMsg">
-            </dd>
-        </dl>
-        <button type="submit" th:text="#{member.action.withdrawal}"></button>
-    </form>
-</section>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://utraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <section layout:fragment="content">
+        <form method="post" th:action="@{/member/withdrawal}" autocomplete="off">
+            <div class="form">
+                <h1 th:text="#{withdrawal}"></h1>
+                <p>
+                    [[#{memberId}]] : <input type="hidden" name="memberId" th:text="${session.memberInfo.memberId}">
+                </p>
+                <dl>
+                    <dt th:text="#{memberPw}"></dt>
+                    <dd>
+                        <input type="password" name="memberPw">
+                    </dd>
+                </dl>
+                <dl>
+                    <dt th:text="#{member.withdrawal.check}"></dt>
+                    <dd>
+                        <input type="text" placeholder="정말 삭제하시겠습니까?" name="withdrawalMsg">
+                    </dd>
+                </dl>
+                <div class="btn">
+                    <button type="submit" th:text="#{member.action.withdrawal}"></button>
+                </div>
+            </div>
+        </form>
+    </section>
 </html>

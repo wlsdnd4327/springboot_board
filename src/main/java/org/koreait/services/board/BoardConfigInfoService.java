@@ -2,6 +2,7 @@ package org.koreait.services.board;
 
 import lombok.RequiredArgsConstructor;
 import org.koreait.commons.constants.Role;
+import org.koreait.commons.utils.MemberUtil;
 import org.koreait.entities.board.Board;
 import org.koreait.exceptions.board.BoardConfigNotExistException;
 import org.koreait.exceptions.board.BoardNotAllowAccessException;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class BoardConfigInfoService {
 
     private final BoardRepository boardRepository;
+    private MemberUtil memberUtil;
 
     public Board get(String bId, String location){
         return get(bId, false, location);
@@ -47,7 +49,7 @@ public class BoardConfigInfoService {
     private void accessCheck(Board board, String location){
 
         //use - false : 모든 항목 접근 불가(관리자 제외)
-        if(!board.isUse()){ //추후 memberutil이 관리자가 아닐때 추가 예정
+        if(!board.isUse() && !memberUtil.isAdmin()){
             throw new BoardNotAllowAccessException();
         }
 
@@ -61,11 +63,12 @@ public class BoardConfigInfoService {
         } else if (location.equals("write")){   //  글쓰기 권한
             role = board.getWriteAccessRole();
 
-        }else if (location.equals("reply")) {  //답글 권한
-            role = board.getReplyAccessRole();
-
         } else if (location.equals("comment")) {    //댓글 권한
             role = board.getCommentAccessRole();
+        }
+
+        if(role == Role.MEMBER && !memberUtil.isLogin() || role == Role.ADMIN && !memberUtil.isAdmin()){    //접근권한이 없을 경우 예외발생
+            throw new BoardNotAllowAccessException();
         }
     }
 }

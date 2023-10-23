@@ -17,6 +17,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
         String memberId = request.getParameter("memberId");
         String memberPw = request.getParameter("memberPw");
 
+        //세션에 담겨있는 로그인 에러 메시지 삭제(초기화)
         session.removeAttribute("memberId");
         session.removeAttribute("requiredMemberId");
         session.removeAttribute("requiredMemberPw");
@@ -32,12 +33,12 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
                 throw new LoginValidationException("requiredMemberPw","NotBlank.joinForm.memberPw");
             }
 
-            throw new LoginValidationException("global","Validation.login.fail");
+            throw new LoginValidationException("global","Validation.login.fail");   //비밀번호 또는 아이디가 틀렸을때 발생하는 예외
 
         }catch(LoginValidationException e){
             session.setAttribute(e.getField(),e.getMessage());
         }
 
-        response.sendRedirect(request.getContextPath() + "/member/login");
+        response.sendRedirect(request.getContextPath() + "/member/login");  //실패시 다시 로그인 페이지 이동
     }
 }

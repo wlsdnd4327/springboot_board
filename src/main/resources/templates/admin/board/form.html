@@ -71,10 +71,7 @@
                     <th>글목록</th>
                     <td>
                         <input type="radio" name="listAccessRole" value="ALL" id="listAccessRole_ALL" th:field="*{listAccessRole}">
-                        <label for="listAccessRole_ALL">전체(회원+강사+관리자)</label>
-
-                        <input type="radio" name="listAccessRole" value="INSTRUCTOR" id="listAccessRole_USER" th:field="*{listAccessRole}">
-                        <label for="listAccessRole_USER">강사</label>
+                        <label for="listAccessRole_ALL">전체(회원+관리자)</label>
 
                         <input type="radio" name="listAccessRole" value="ADMIN" id="listAccessRole_ADMIN" th:field="*{listAccessRole}">
                         <label for="listAccessRole_ADMIN">관리자</label>
@@ -84,10 +81,7 @@
                     <th>글보기</th>
                     <td>
                         <input type="radio" name="viewAccessRole" value="ALL" id="viewAccessRole_ALL" th:field="*{viewAccessRole}">
-                        <label for="viewAccessRole_ALL">전체(회원+강사+관리자)</label>
-
-                        <input type="radio" name="viewAccessRole" value="INSTRUCTOR" id="viewAccessRole_USER" th:field="*{viewAccessRole}">
-                        <label for="viewAccessRole_USER">강사</label>
+                        <label for="viewAccessRole_ALL">전체(회원+관리자)</label>
 
                         <input type="radio" name="viewAccessRole" value="ADMIN" id="viewAccessRole_ADMIN" th:field="*{viewAccessRole}">
                         <label for="viewAccessRole_ADMIN">관리자</label>
@@ -98,36 +92,17 @@
                     <th>글쓰기</th>
                     <td>
                         <input type="radio" name="writeAccessRole" value="ALL" id="writeAccessRole_ALL" th:field="*{writeAccessRole}">
-                        <label for="writeAccessRole_ALL">전체(회원+강사+관리자)</label>
-
-                        <input type="radio" name="writeAccessRole" value="INSTRUCTOR" id="writeAccessRole_USER" th:field="*{writeAccessRole}">
-                        <label for="writeAccessRole_USER">강사</label>
+                        <label for="writeAccessRole_ALL">전체(회원+관리자)</label>
 
                         <input type="radio" name="writeAccessRole" value="ADMIN" id="writeAccessRole_ADMIN" th:field="*{writeAccessRole}">
                         <label for="writeAccessRole_ADMIN">관리자</label>
                     </td>
                 </tr>
                 <tr>
-                    <th>답글</th>
-                    <td>
-                        <input type="radio" name="replyAccessRole" value="ALL" id="replyAccessRole_ALL" th:field="*{replyAccessRole}">
-                        <label for="replyAccessRole_ALL">전체(회원+강사+관리자)</label>
-
-                        <input type="radio" name="replyAccessRole" value="INSTRUCTOR" id="replyAccessRole_USER" th:field="*{replyAccessRole}">
-                        <label for="replyAccessRole_USER">강사</label>
-
-                        <input type="radio" name="replyAccessRole" value="ADMIN" id="replyAccessRole_ADMIN" th:field="*{replyAccessRole}">
-                        <label for="replyAccessRole_ADMIN">관리자</label>
-                    </td>
-                </tr>
-                <tr>
                     <th>댓글</th>
                     <td>
                         <input type="radio" name="commentAccessRole" value="ALL" id="commentAccessRole_ALL" th:field="*{commentAccessRole}">
-                        <label for="commentAccessRole_ALL">전체(회원+강사+관리자)</label>
-
-                        <input type="radio" name="commentAccessRole" value="INSTRUCTOR" id="commentAccessRole_USER" th:field="*{commentAccessRole}">
-                        <label for="commentAccessRole_USER">강사</label>
+                        <label for="commentAccessRole_ALL">전체(회원+관리자)</label>
 
                         <input type="radio" name="commentAccessRole" value="ADMIN" id="commentAccessRole_ADMIN" th:field="*{commentAccessRole}">
                         <label for="commentAccessRole_ADMIN">관리자</label>
@@ -165,16 +140,6 @@
 
                         <input type="radio" name="useAttachImage" value="false" id="useAttachImage_false" th:field="*{useAttachImage}">
                         <label for="useAttachImage_false">미사용</label>
-                    </td>
-                </tr>
-                <tr>
-                    <th>답글 사용</th>
-                    <td>
-                        <input type="radio" name="useReply" value="true" id="useReply_true" th:field="*{useReply}">
-                        <label for="useReply_true">사용</label>
-
-                        <input type="radio" name="useReply" value="false" id="useReply_false" th:field="*{useReply}">
-                        <label for="useReply_false">미사용</label>
                     </td>
                 </tr>
                 <tr>

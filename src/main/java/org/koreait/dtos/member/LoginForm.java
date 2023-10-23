@@ -11,4 +11,6 @@ public class LoginForm {
     private String memberPw;
 
     private boolean saveId;
+
+    private String redirectUrl;
 }

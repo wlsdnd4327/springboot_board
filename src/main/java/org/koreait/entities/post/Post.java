@@ -7,13 +7,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.koreait.entities.BaseEntity;
 import org.koreait.entities.board.Board;
+import org.koreait.entities.file.FileEntity;
+import org.koreait.entities.member.MemberEntity;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity @Data @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(indexes = {@Index(name = "idx_post_category", columnList = "category DESC"), @Index(name = "idx_post_createAt", columnList = "createdAt DESC")})
+@Table(indexes = {@Index(name = "idx_post_category", columnList = "category DESC"), @Index(name = "idx_post_createAt", columnList = "isNotice DESC, createdAt DESC")})
 public class Post extends BaseEntity {
     @Id @GeneratedValue
     private Long id;    //게시글 번호
@@ -47,4 +50,20 @@ public class Post extends BaseEntity {
     private String ip;  //작성자 ip 주소
 
     private int commentCnt; // 댓글수
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userNo")
+    private MemberEntity member;  //작성회원
+
+    private boolean isNotice;   //공지글 여부 (1이면 공지글 0이면 일반글)
+
+    @Transient
+    private List<FileEntity> attachEditors; // 에디터 첨부용 이미지 파일
+
+    @Transient
+    private List<FileEntity> attachFiles; // 일반 첨부 파일
+
+    @OneToMany(mappedBy="post")
+    private List<Comment> comments;
+
 }

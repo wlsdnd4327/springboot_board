@@ -7,7 +7,14 @@
             <tr>
                 <th th:text="#{board.poster}"></th>
                 <td>
-                    <input type="text" name="poster" th:field="*{poster}">
+                    <input type="text" name="poster" th:field="*{poster}" class="poster">
+                    <th:block th:if="${@memberUtil.isAdmin()}">
+                        <input type="checkbox" name="isNotice" value="true" id="check2" th:checked="*{isNotice}">
+                        <label for="check2">공지글 설정</label>
+                    </th:block>
+                    <th:block th:unless="${@memberUtil.isAdmin()}">
+                        <input type="hidden" name="isNotice" th:value="*{isNotice}">
+                    </th:block>
                 </td>
             </tr>
             <tr th:if="${board.categories != null}">
@@ -32,18 +39,30 @@
                     <textarea name="content" id="content" th:field="*{content}"></textarea>
                     <div class="errors" th:each="err : ${#fields.errors('content')}" th:text="${err}"></div>
                     <th:block th:if="${board.useEditor && board.useAttachImage == true}">
-                        <button type="button" class="attachFiles image" th:text="#{board.attach.image}"></button>
-                        <div class="attachFiles image"></div>
+                        <button type="button" class="uploadFiles image" th:text="#{board.attach.image}"></button>
+                        <div class="attachFiles image">
+                             <span th:if="*{attachEditors != null}" th:each="file : *{attachEditors}" class="file_box" th:id="${'file_' + file.id}">
+                                <a th:href="@{/file/download/{id}(id=${file.id})}" th:text="${file.fileName}"></a>
+                                <span class="insert_editor" th:data-url="${file.fileUrl}">[↑]</span>
+                                <a th:href="@{/file/delete/{id}(id=${file.id})}" target="iframeProcess" onclick="return confirm('정말 삭제하시겠습니까?');">[X]</a>
+                            </span>
+                        </div>
                     </th:block>
                 </td>
             </tr>
             <tr th:if="${board.useAttachFile == true}">
                 <th th:text="#{board.attach.file}"></th>
                 <td>
-                    <button type="button" class="attachFiles" th:text="#{board.attach.file}"></button>
-                    <div class="attachFiles files"></div>
+                    <button type="button" class="uploadFiles" th:text="#{board.attach.file}"></button>
+                    <div class="attachFiles files">
+                        <span th:if="*{attachFiles != null}" th:each="file : *{attachFiles}" class="file_box" th:id="${'file_' + file.id}">
+                            <a th:href="@{/file/download/{id}(id=${file.id})}" th:text="${file.fileName}"></a>
+                            <a th:href="@{/file/delete/{id}(id=${file.id})}" target="iframeProcess" onclick="return confirm('정말 삭제하시겠습니까?');">[X]</a>
+                        </span>
+                    </div>
                 </td>
             </tr>
         </table>
+        <th:block th:replace="~{commons/_file_tpl::tpl}"></th:block>
     </th:block>
 </html>

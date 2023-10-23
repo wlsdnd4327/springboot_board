@@ -4,11 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.koreait.commons.MemberPwFind;
 import org.koreait.commons.utils.MemberUtil;
 import org.koreait.dtos.member.FindIdForm;
-import org.koreait.dtos.member.SendMailDto;
 import org.koreait.entities.member.MemberEntity;
 import org.koreait.exceptions.member.MemberDataNotExistsException;
 import org.koreait.repositories.MemberRepository;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -49,41 +47,5 @@ public class FindMemberService implements MemberPwFind {
         if(memberEntity == null) { throw new MemberDataNotExistsException();}
 
         return memberEntity.getMemberNo();
-    }
-
-    @Override
-    public SendMailDto writeMail(String id) {
-
-        MemberEntity member = repository.findByMemberId(id);
-
-        if(member == null) {return null;}
-
-        String email_login = memberUtil.getMember().getEmail();
-        String email_db = member.getEmail();
-        SendMailDto mailDto = new SendMailDto();
-
-        if(email_db.equals(email_login)) {
-            mailDto.setAddress(email_login);
-            mailDto.setTitle("새 비밀번호 등록 안내 이메일 입니다.");
-            mailDto.setMessage("안녕하세요, 새 비밀번호 등록 관련 안내 이메일 입니다."
-            +"회원님의 비밀번호 설정을 위해 아래 url로 들어가 새 비밀번호를 등록해주세요."
-            +"http://localhost:3000/member/setNewPw");
-        }
-        return mailDto;
-    }
-
-    @Override
-    public void sendMail(SendMailDto mailDto) {
-        System.out.println("====================");
-        System.out.println("메일 전송");
-        System.out.println("====================");
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(mailDto.getAddress());
-        message.setSubject(mailDto.getTitle());
-        message.setText(mailDto.getMessage());
-        message.setFrom("day00@test.org");
-        message.setReplyTo("day00@test.org");
-        System.out.println("message : " + message);
-        mailSender.send(message);
     }
 }

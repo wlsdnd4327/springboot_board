@@ -33,7 +33,6 @@ public class MemberController {
     private final JoinValidator joinValidator;
     private final PwValidator pwValidator;
 
-
     // 회원가입
     @GetMapping("/join")
     public String join(Model model) {
@@ -67,8 +66,22 @@ public class MemberController {
 
     //로그인
     @GetMapping("/login")
-    public String login(@ModelAttribute LoginForm loginForm, HttpSession session,
-                        @CookieValue(required = false) String saveId, Model model) {
+    public String login(@ModelAttribute LoginForm loginForm, HttpServletRequest request,
+                        @CookieValue(required = false) String saveId, Model model, @Valid Errors errors) {
+
+        HttpSession session = request.getSession();
+        String referer = request.getHeader("Referer");
+
+        if (!referer.contains("/member/login")) {
+            session.removeAttribute("memberId");
+            session.removeAttribute("requiredMemberId");
+            session.removeAttribute("requiredMemberPw");
+            session.removeAttribute("global");
+        }
+
+        if(errors.hasErrors()){
+            return "member/login";
+        }
 
         if (saveId != null) {
             loginForm.setMemberId(saveId);
@@ -81,6 +94,7 @@ public class MemberController {
         }
 
         commonProcess(model, "로그인");
+
         return "member/login";
     }
 
@@ -227,7 +241,6 @@ public class MemberController {
     }
 
     private void commonProcess(Model model, String title) {
-        model.addAttribute("addCss","style2");
         model.addAttribute("title",title);
     }
 }

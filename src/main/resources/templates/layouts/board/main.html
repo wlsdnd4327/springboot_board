@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta name="_csrf" th:content="${_csrf.token}">
+        <meta name="_csrf_header" th:content="${_csrf.headerName}">
+        <title>
+            <th:block if="${title != null}" th:text="${title + ' :: '}"></th:block>
+            <th:block th:text="${@siteConf.get('siteTitle')}"></th:block>
+        </title>
+        <meta name="siteDescription" th:content="${@siteConf.get('siteDescription')}">
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/board/style.css?v={v}(v=${@siteConf.get('cssJsVersion')})}">
+        <link rel="stylesheet" type="text/css" th:each="file : ${addCss}" th:href="@{/css/board/{cssFile}.css?
+                v={v}(cssFile=${file},v=${@siteConf.get('cssJsVersion')})}">
+        <th:block layout:fragment="addCss"></th:block>
+
+        <script th:src="@{/js/admin/common.js?v={v}(v=${@siteConf.get('cssJsVersion')})}"></script>
+        <script th:each="jsFile : ${addScript}" th:src="@{/js/{jsFile}.js?v={v}(jsFile=${jsFile},
+                 v=${@siteConf.get('cssJsVersion')})}"></script>
+        <th:block layout:fragment="addScript"></th:block>
+    </head>
+    <body>
+        <header th:replace="~{outlines/user/header::common}"></header>
+        <main>
+            <section>
+                <section layout:fragment="content"></section>
+            </section>
+        </main>
+        <footer th:replace="~{outlines/user/footer::common}"></footer>
+        <iframe name="iframeProcess" class="dn"></iframe>
+    </body>
+</html>
